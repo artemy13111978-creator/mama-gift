@@ -1,0 +1,235 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Мамин подарок ❤️</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(
+    135deg,
+    #fff0f5,
+    #ffe0eb,
+    #f5e6ff
+  );
+
+  font-family: Georgia, serif;
+  color: #5a3043;
+}
+
+#app {
+  width: 90%;
+  max-width: 750px;
+}
+
+.gift,
+.letter,
+.memories {
+  padding: 45px 30px;
+
+  text-align: center;
+
+  background: rgba(255,255,255,0.96);
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 20px 60px rgba(90,40,70,0.18);
+}
+
+.heart {
+  font-size: 60px;
+}
+
+h1 {
+  font-size: 42px;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: normal;
+}
+
+p {
+  font-size: 23px;
+  line-height: 1.6;
+}
+
+.envelope {
+  font-size: 120px;
+  margin: 25px 0;
+}
+
+button,
+.photoButton {
+  display: inline-block;
+
+  margin-top: 20px;
+
+  padding: 18px 30px;
+
+  border: none;
+  border-radius: 50px;
+
+  background: #9b4f72;
+  color: white;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: transform 0.3s;
+}
+
+button:hover,
+.photoButton:hover {
+  transform: scale(1.05);
+}
+
+.flower {
+  font-size: 60px;
+}
+
+.letterText {
+  margin-top: 30px;
+}
+
+.letterText p {
+  font-size: 25px;
+  line-height: 1.7;
+  margin: 25px 0;
+}
+
+.signature {
+  margin-top: 40px;
+  font-size: 24px;
+  font-style: italic;
+}
+
+.photoButton input {
+  display: none;
+}
+
+#slideshow {
+  width: 100%;
+  max-width: 600px;
+  margin: 35px auto;
+  text-align: center;
+}
+
+#slideImage {
+  display: block;
+
+  width: 100%;
+  max-height: 500px;
+
+  object-fit: contain;
+
+  margin: 0 auto;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.2);
+
+  opacity: 1;
+
+  transition: opacity 0.8s ease;
+}
+
+.photoCounter {
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.musicBox {
+  margin-top: 30px;
+  padding: 20px;
+
+  background: #fff0f5;
+  border-radius: 20px;
+}
+
+.musicBox p {
+  font-size: 20px;
+  margin: 5px 0 15px;
+}
+
+audio {
+  width: 100%;
+  max-width: 500px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <div class="gift">
+
+    <div class="heart">❤️</div>
+
+    <h1>Для моей любимой мамы</h1>
+
+    <h2>Ольга ❤️</h2>
+
+    <div class="envelope">💌</div>
+
+    <p>У меня для тебя кое-что особенное...</p>
+
+    <button id="openButton">
+      Открыть подарок 🎁
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const app = document.getElementById("app");
+
+let photos = [];
+let currentPhoto = 0;
+let slideshowTimer = null;
+
+
+/* ПЕРВЫЙ ЭКРАН */
+
+document.getElementById("openButton").addEventListener("click", function () {
+
+  app.innerHTML = `
+
+    <div class="letter">
+
+      <div class="flower">💗</div>
+
+      <h1>Мамочка ❤️</h1>
+
+      <p>
+        У меня для тебя есть<br>
+        кое-что очень важное...
+      </p>
+
+      <button id="lette
+```
