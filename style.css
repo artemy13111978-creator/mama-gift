@@ -1,4 +1,3 @@
-```css
 * {
   box-sizing: border-box;
 }
@@ -6,55 +5,715 @@
 html,
 body {
   margin: 0;
-  padding: 0;
   min-height: 100%;
 }
 
 body {
-  font-family: Georgia, "Times New Roman", serif;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(255,255,255,.9), transparent 28%),
-    radial-gradient(circle at 90% 80%, rgba(255,180,205,.55), transparent 30%),
-    linear-gradient(135deg, #fff1f6 0%, #ffdce8 50%, #fff0f5 100%);
-  color: #5d2940;
-  overflow-x: hidden;
-}
-
-#app {
   min-height: 100vh;
-  padding: 35px 90px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  z-index: 2;
+
+  padding: 30px 0;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255,255,255,0.95),
+      transparent 22%
+    ),
+
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(255,190,215,0.8),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 15% 85%,
+      rgba(220,200,255,0.75),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 85% 90%,
+      rgba(255,225,180,0.7),
+      transparent 25%
+    ),
+
+    linear-gradient(
+      135deg,
+      #ffd8e7,
+      #f5d9ef,
+      #e5dcff
+    );
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  color: #5a3043;
+
+  overflow-x: hidden;
 }
 
-/* Боковые украшения */
+
+/* ==============================
+   ШАРИКИ И ПРАЗДНИЧНЫЙ ДЕКОР
+============================== */
 
 .side-decor {
   position: fixed;
+
   top: 0;
   bottom: 0;
-  width: 75px;
+
+  width: 85px;
+
   display: flex;
+
   flex-direction: column;
+
   justify-content: space-around;
+
   align-items: center;
+
   pointer-events: none;
+
   z-index: 1;
 }
 
 .side-decor.left {
-  left: 10px;
+  left: 0;
 }
 
 .side-decor.right {
-  right: 10px;
+  right: 0;
 }
 
 .side-decor span {
-  font-size: 38px;
-  filter: drop-shadow(0 4px 5px rgba(90,30,50,.15));
-  animation: floatDecor 4s ease-in-out infinit
-```
+  font-size: 40px;
+
+  opacity: 0.78;
+
+  filter:
+    drop-shadow(
+      0 5px 5px rgba(80,40,70,0.12)
+    );
+
+  animation:
+    floatDecor 4s ease-in-out infinite;
+}
+
+.side-decor span:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
+.side-decor span:nth-child(3) {
+  animation-delay: 1.4s;
+}
+
+.side-decor span:nth-child(4) {
+  animation-delay: 2.1s;
+}
+
+.side-decor span:nth-child(5) {
+  animation-delay: 2.8s;
+}
+
+.side-decor span:nth-child(6) {
+  animation-delay: 3.5s;
+}
+
+@keyframes floatDecor {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(-4deg);
+  }
+
+  50% {
+    transform:
+      translateY(-12px)
+      rotate(4deg);
+  }
+}
+
+
+/* ==============================
+   ОСНОВА
+============================== */
+
+#app {
+  width: min(88%, 750px);
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+/* ==============================
+   ОБЩИЕ КАРТОЧКИ
+============================== */
+
+.gift,
+.letter,
+.memories {
+
+  position: relative;
+
+  overflow: hidden;
+
+  text-align: center;
+
+  border:
+    2px solid
+    rgba(255,255,255,0.85);
+
+  box-shadow:
+    0 25px 70px
+    rgba(100,45,80,0.22);
+}
+
+
+/* ==============================
+   ПЕРВАЯ ОТКРЫТКА
+============================== */
+
+.gift {
+
+  padding: 60px 35px;
+
+  border-radius: 40px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,250,246,0.98),
+      rgba(255,225,238,0.97)
+    );
+}
+
+
+/* ==============================
+   ДЕКОР ПЕРВОЙ ОТКРЫТКИ
+============================== */
+
+.gift::before {
+
+  content:
+    "🎂   ✨   💕";
+
+  position: absolute;
+
+  top: 15px;
+  left: 20px;
+
+  font-size: 28px;
+
+  opacity: 0.7;
+}
+
+.gift::after {
+
+  content:
+    "💕   ✨   🦫";
+
+  position: absolute;
+
+  bottom: 15px;
+  right: 20px;
+
+  font-size: 28px;
+
+  opacity: 0.7;
+}
+
+
+/* ==============================
+   СЕРДЦЕ
+============================== */
+
+.heart {
+
+  font-size: 60px;
+
+  animation:
+    heartBeat 2s infinite ease-in-out;
+}
+
+@keyframes heartBeat {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+
+/* ==============================
+   ЗАГОЛОВКИ
+============================== */
+
+h1 {
+
+  font-size: 44px;
+
+  margin: 15px 0;
+
+  color: #71344f;
+
+  text-shadow:
+    0 2px 8px
+    rgba(120,50,80,0.12);
+}
+
+h2 {
+
+  font-size: 30px;
+
+  font-weight: normal;
+
+  color: #95516e;
+}
+
+p {
+
+  font-size: 23px;
+
+  line-height: 1.6;
+}
+
+
+/* ==============================
+   КОНВЕРТ
+============================== */
+
+.envelope {
+
+  font-size: 120px;
+
+  margin: 30px 0;
+
+  animation:
+    envelopeFloat 3s infinite ease-in-out;
+}
+
+@keyframes envelopeFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
+/* ==============================
+   КНОПКИ
+============================== */
+
+button {
+
+  margin-top: 20px;
+
+  padding: 18px 32px;
+
+  border: none;
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #a94f78,
+      #d36d9b
+    );
+
+  color: white;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 25px
+    rgba(150,60,100,0.25);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+button:hover {
+
+  transform:
+    translateY(-3px)
+    scale(1.03);
+
+  box-shadow:
+    0 12px 30px
+    rgba(150,60,100,0.35);
+}
+
+
+/* ==============================
+   ПИСЬМО
+============================== */
+
+.letter {
+
+  padding: 60px 40px;
+
+  border-radius: 32px;
+
+  background:
+
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255,255,255,0.9),
+      transparent 24%
+    ),
+
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(255,190,215,0.45),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      145deg,
+      #fff0df,
+      #ffe0eb 50%,
+      #f6e3f5
+    );
+}
+
+
+/* Тортик */
+
+.letter::before {
+
+  content: "🎂";
+
+  position: absolute;
+
+  top: 15px;
+  left: 20px;
+
+  font-size: 44px;
+}
+
+
+/* Бобрик */
+
+.letter::after {
+
+  content: "🦫";
+
+  position: absolute;
+
+  top: 15px;
+  right: 20px;
+
+  font-size: 44px;
+}
+
+
+/* ==============================
+   ЦВЕТОК
+============================== */
+
+.flower {
+
+  font-size: 60px;
+
+  animation:
+    flowerFloat 3s infinite ease-in-out;
+}
+
+@keyframes flowerFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+
+/* ==============================
+   ТЕКСТ ПИСЬМА
+============================== */
+
+.letterText {
+
+  margin-top: 30px;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+.letterText p {
+
+  font-size: 25px;
+
+  line-height: 1.7;
+
+  margin: 25px 0;
+
+  color: #583746;
+}
+
+
+/* ==============================
+   ПОДПИСЬ
+============================== */
+
+.signature {
+
+  margin-top: 40px;
+
+  font-size: 25px;
+
+  font-style: italic;
+
+  color: #914d6b;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+/* ==============================
+   ФОТОГРАФИИ
+============================== */
+
+.memories {
+
+  padding: 45px 25px;
+
+  border-radius: 38px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,247,241,0.98),
+      rgba(255,224,238,0.96)
+    );
+}
+
+
+/* Декор */
+
+.memories::before {
+
+  content:
+    "🎈  🎂  🦫  💕";
+
+  position: absolute;
+
+  top: 12px;
+  left: 15px;
+
+  font-size: 28px;
+
+  opacity: 0.7;
+}
+
+.memories::after {
+
+  content:
+    "💕  🦫  🎂  🎈";
+
+  position: absolute;
+
+  top: 12px;
+  right: 15px;
+
+  font-size: 28px;
+
+  opacity: 0.7;
+}
+
+
+/* ==============================
+   СЛАЙД-ШОУ
+============================== */
+
+#slideshow {
+
+  width: 100%;
+
+  max-width: 600px;
+
+  margin: 35px auto;
+
+  text-align: center;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+#slideImage {
+
+  display: block;
+
+  width: 100%;
+
+  max-height: 500px;
+
+  object-fit: contain;
+
+  margin: 0 auto;
+
+  border-radius: 25px;
+
+  border:
+    7px solid
+    rgba(255,255,255,0.9);
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,0.22);
+
+  opacity: 1;
+
+  transition:
+    opacity 0.8s ease;
+}
+
+
+/* ==============================
+   НОМЕР ФОТО
+============================== */
+
+.photoCounter {
+
+  font-size: 20px;
+
+  margin-top: 15px;
+
+  color: #74445b;
+}
+
+
+/* ==============================
+   МУЗЫКА
+============================== */
+
+audio {
+
+  width: 100%;
+
+  max-width: 500px;
+
+  margin: 20px auto;
+
+  display: block;
+
+  position: relative;
+
+  z-index: 3;
+}
+
+
+/* ==============================
+   ТЕЛЕФОН
+============================== */
+
+@media (max-width: 800px) {
+
+  .side-decor {
+
+    width: 48px;
+  }
+
+  .side-decor span {
+
+    font-size: 27px;
+  }
+
+  #app {
+
+    width: 84%;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  body {
+
+    padding: 20px 0;
+  }
+
+  .side-decor {
+
+    width: 30px;
+  }
+
+  .side-decor span {
+
+    font-size: 20px;
+  }
+
+  .gift,
+  .letter,
+  .memories {
+
+    padding: 40px 20px;
+
+    border-radius: 28px;
+  }
+
+  h1 {
+
+    font-size: 34px;
+  }
+
+  h2 {
+
+    font-size: 26px;
+  }
+
+  p {
+
+    font-size: 20px;
+  }
+
+  .letterText p {
+
+    font-size: 21px;
+  }
+
+  .envelope {
+
+    font-size: 90px;
+  }
+
+  button {
+
+    font-size: 18px;
+
+    padding: 16px 25px;
+  }
+
+}
