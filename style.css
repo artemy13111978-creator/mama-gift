@@ -2,59 +2,72 @@
   box-sizing: border-box;
   }
 
-html {
+html,
+body {
 margin: 0;
 padding: 0;
+width: 100%;
 min-height: 100%;
 }
 
 body {
-margin: 0;
 min-height: 100vh;
-padding: 30px 10px;
-
-display: flex;
-justify-content: center;
-align-items: center;
-
 overflow-x: hidden;
 
 font-family: Georgia, "Times New Roman", serif;
-color: #5a3043;
+color: #572c40;
 
-/* ЯРКИЙ ВИДИМЫЙ ФОН */
-background-color: #f6d7e8;
-background-image:
-radial-gradient(circle at 10% 10%, rgba(255,255,255,.95) 0 12%, transparent 30%),
-radial-gradient(circle at 90% 15%, rgba(255,150,195,.75) 0 10%, transparent 32%),
-radial-gradient(circle at 15% 85%, rgba(190,175,255,.65) 0 10%, transparent 32%),
-radial-gradient(circle at 85% 90%, rgba(255,220,150,.7) 0 10%, transparent 32%),
-linear-gradient(135deg, #ffc7df 0%, #ead1f5 50%, #cfd9ff 100%);
+background:
+radial-gradient(circle at 15% 15%, #fff7fb 0, transparent 25%),
+radial-gradient(circle at 85% 20%, #ffd0e3 0, transparent 28%),
+radial-gradient(circle at 15% 85%, #d9d5ff 0, transparent 30%),
+radial-gradient(circle at 85% 85%, #ffe5c5 0, transparent 28%),
+linear-gradient(135deg, #f8b9d3 0%, #d9c8f1 50%, #bfcff5 100%);
+
+background-attachment: fixed;
 }
+
+body::before {
+content: "";
+position: fixed;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+
+background:
+radial-gradient(circle at 50% 0%, rgba(255,255,255,.45), transparent 40%);
+}
+
+/* =========================
+ЦЕНТРАЛЬНАЯ ОБЛАСТЬ
+========================= */
 
 #app {
 position: relative;
-z-index: 2;
-width: 100%;
-max-width: 750px;
-margin: 0 auto;
+z-index: 3;
+
+width: min(760px, calc(100% - 150px));
+margin: 50px auto;
 }
 
-/* БОЛЬШИЕ ШАРЫ ПО БОКАМ */
+/* =========================
+ШАРЫ ПО КРАЯМ
+========================= */
 
 .side-decor {
 position: fixed;
 top: 0;
 bottom: 0;
-width: 100px;
+
+width: 115px;
 
 display: flex;
 flex-direction: column;
-justify-content: space-around;
+justify-content: space-evenly;
 align-items: center;
 
+z-index: 2;
 pointer-events: none;
-z-index: 1;
 }
 
 .side-decor.left {
@@ -67,66 +80,17 @@ right: 0;
 
 .side-decor span {
 display: block;
-font-size: 52px;
-line-height: 1;
-opacity: .95;
 
-animation: floatDecor 4s ease-in-out infinite;
+font-size: 58px;
+line-height: 1;
+
+filter: drop-shadow(0 8px 8px rgba(80, 30, 60, .15));
+
+animation: balloonFloat 4s ease-in-out infinite;
 }
 
 .side-decor span:nth-child(2) {
 animation-delay: .5s;
 }
 
-.side-decor span:nth-child(3) {
-animation-delay: 1s;
-}
-
-.side-decor span:nth-child(4) {
-animation-delay: 1.5s;
-}
-
-.side-decor span:nth-child(5) {
-animation-delay: 2s;
-}
-
-.side-decor span:nth-child(6) {
-animation-delay: 2.5s;
-}
-
-@keyframes floatDecor {
-0%, 100% {
-transform: translateY(0) rotate(-4deg);
-}
-
-50% {
-transform: translateY(-12px) rotate(4deg);
-}
-}
-
-/* ЛЕТЯЩИЕ СЕРДЕЧКИ */
-
-#hearts {
-position: fixed;
-inset: 0;
-overflow: hidden;
-pointer-events: none;
-z-index: 5;
-}
-
-.flying-heart {
-position: absolute;
-bottom: -60px;
-opacity: 0;
-font-size: 25px;
-
-animation: flyHeart linear forwards;
-}
-
-@keyframes flyHeart {
-0% {
-transform: translateY(0) translateX(0) rotate(0deg);
-opacity: 0;
-}
-
-1
+.side-dec
