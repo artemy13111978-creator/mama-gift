@@ -1,939 +1,132 @@
 * {
   box-sizing: border-box;
-}
+  }
 
 html {
-  margin: 0;
-  padding: 0;
+margin: 0;
+padding: 0;
+min-height: 100%;
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 30px 10px;
+margin: 0;
+min-height: 100vh;
+padding: 30px 10px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+display: flex;
+justify-content: center;
+align-items: center;
 
-  overflow-x: hidden;
+overflow-x: hidden;
 
-  font-family: Georgia, "Times New Roman", serif;
-  color: #5a3043;
+font-family: Georgia, "Times New Roman", serif;
+color: #5a3043;
 
-  background:
-    radial-gradient(circle at 10% 10%,
-      rgba(255,255,255,.95),
-      transparent 22%),
-    radial-gradient(circle at 90% 15%,
-      rgba(255,190,215,.8),
-      transparent 25%),
-    radial-gradient(circle at 15% 85%,
-      rgba(220,200,255,.75),
-      transparent 25%),
-    radial-gradient(circle at 85% 90%,
-      rgba(255,225,180,.7),
-      transparent 25%),
-    linear-gradient(135deg,
-      #ffd8e7,
-      #f5d9ef,
-      #e5dcff);
+/* ЯРКИЙ ВИДИМЫЙ ФОН */
+background-color: #f6d7e8;
+background-image:
+radial-gradient(circle at 10% 10%, rgba(255,255,255,.95) 0 12%, transparent 30%),
+radial-gradient(circle at 90% 15%, rgba(255,150,195,.75) 0 10%, transparent 32%),
+radial-gradient(circle at 15% 85%, rgba(190,175,255,.65) 0 10%, transparent 32%),
+radial-gradient(circle at 85% 90%, rgba(255,220,150,.7) 0 10%, transparent 32%),
+linear-gradient(135deg, #ffc7df 0%, #ead1f5 50%, #cfd9ff 100%);
 }
-
-
-/* =========================
-   ОСНОВНАЯ ОБЛАСТЬ
-========================= */
 
 #app {
-  position: relative;
-  z-index: 2;
-
-  width: 100%;
-  max-width: 750px;
-
-  margin: 0 auto;
+position: relative;
+z-index: 2;
+width: 100%;
+max-width: 750px;
+margin: 0 auto;
 }
 
-
-/* =========================
-   БОКОВОЙ ДЕКОР
-========================= */
+/* БОЛЬШИЕ ШАРЫ ПО БОКАМ */
 
 .side-decor {
-  position: fixed;
+position: fixed;
+top: 0;
+bottom: 0;
+width: 100px;
 
-  top: 0;
-  bottom: 0;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
 
-  width: 80px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-
-  pointer-events: none;
-
-  z-index: 1;
+pointer-events: none;
+z-index: 1;
 }
 
 .side-decor.left {
-  left: 0;
+left: 0;
 }
 
 .side-decor.right {
-  right: 0;
+right: 0;
 }
 
 .side-decor span {
-  font-size: 38px;
-  opacity: .78;
+display: block;
+font-size: 52px;
+line-height: 1;
+opacity: .95;
 
-  animation: floatDecor 4s ease-in-out infinite;
+animation: floatDecor 4s ease-in-out infinite;
 }
 
 .side-decor span:nth-child(2) {
-  animation-delay: .5s;
+animation-delay: .5s;
 }
 
 .side-decor span:nth-child(3) {
-  animation-delay: 1s;
+animation-delay: 1s;
 }
 
 .side-decor span:nth-child(4) {
-  animation-delay: 1.5s;
+animation-delay: 1.5s;
 }
 
 .side-decor span:nth-child(5) {
-  animation-delay: 2s;
+animation-delay: 2s;
 }
 
 .side-decor span:nth-child(6) {
-  animation-delay: 2.5s;
+animation-delay: 2.5s;
 }
 
 @keyframes floatDecor {
-  0%, 100% {
-    transform: translateY(0) rotate(-4deg);
-  }
-
-  50% {
-    transform: translateY(-10px) rotate(4deg);
-  }
+0%, 100% {
+transform: translateY(0) rotate(-4deg);
 }
 
+50% {
+transform: translateY(-12px) rotate(4deg);
+}
+}
 
-/* =========================
-   ЛЕТАЮЩИЕ СЕРДЕЧКИ
-========================= */
+/* ЛЕТЯЩИЕ СЕРДЕЧКИ */
 
 #hearts {
-  position: fixed;
-  inset: 0;
-
-  overflow: hidden;
-  pointer-events: none;
-
-  z-index: 5;
+position: fixed;
+inset: 0;
+overflow: hidden;
+pointer-events: none;
+z-index: 5;
 }
 
 .flying-heart {
-  position: absolute;
+position: absolute;
+bottom: -60px;
+opacity: 0;
+font-size: 25px;
 
-  bottom: -60px;
-
-  opacity: 0;
-
-  font-size: 25px;
-
-  animation: flyHeart linear forwards;
+animation: flyHeart linear forwards;
 }
 
 @keyframes flyHeart {
-  0% {
-    transform:
-      translateY(0)
-      translateX(0)
-      rotate(0deg);
-
-    opacity: 0;
-  }
-
-  15% {
-    opacity: .85;
-  }
-
-  100% {
-    transform:
-      translateY(-110vh)
-      translateX(var(--move))
-      rotate(360deg);
-
-    opacity: 0;
-  }
+0% {
+transform: translateY(0) translateX(0) rotate(0deg);
+opacity: 0;
 }
 
-
-/* =========================
-   ОБЩИЕ ЭКРАНЫ
-========================= */
-
-.gift,
-.letter,
-.memories,
-.final-screen,
-.secret-screen {
-  position: relative;
-
-  width: 100%;
-
-  overflow: hidden;
-
-  text-align: center;
-
-  border: 2px solid rgba(255,255,255,.85);
-
-  box-shadow:
-    0 25px 70px rgba(100,45,80,.22);
-
-  animation: screenAppear .8s ease;
-}
-
-@keyframes screenAppear {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(.97);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-
-/* =========================
-   ПЕРВЫЙ ЭКРАН
-========================= */
-
-.gift {
-  padding: 60px 35px;
-
-  border-radius: 40px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,250,246,.98),
-      rgba(255,225,238,.97)
-    );
-}
-
-.gift::before {
-  content: "🎂   ✨   💕";
-
-  position: absolute;
-
-  top: 15px;
-  left: 20px;
-
-  font-size: 28px;
-
-  opacity: .7;
-}
-
-.gift::after {
-  content: "💕   ✨   🦫";
-
-  position: absolute;
-
-  right: 20px;
-  bottom: 15px;
-
-  font-size: 28px;
-
-  opacity: .7;
-}
-
-
-/* =========================
-   ТЕКСТ
-========================= */
-
-h1 {
-  margin: 15px 0;
-
-  font-size: 44px;
-  line-height: 1.2;
-
-  color: #71344f;
-
-  text-shadow:
-    0 2px 8px rgba(120,50,80,.12);
-}
-
-h2 {
-  font-size: 30px;
-  font-weight: normal;
-
-  color: #95516e;
-}
-
-p {
-  font-size: 23px;
-  line-height: 1.6;
-}
-
-
-/* =========================
-   СЕРДЦЕ
-========================= */
-
-.heart {
-  font-size: 60px;
-
-  animation: heartBeat 2s infinite ease-in-out;
-}
-
-@keyframes heartBeat {
-  0%, 100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.12);
-  }
-}
-
-
-/* =========================
-   КОНВЕРТ
-========================= */
-
-.envelope {
-  margin: 30px 0;
-
-  font-size: 120px;
-
-  animation: envelopeFloat 3s infinite ease-in-out;
-}
-
-@keyframes envelopeFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-
-/* =========================
-   КНОПКИ
-========================= */
-
-button {
-  max-width: 100%;
-
-  margin-top: 20px;
-  padding: 18px 32px;
-
-  border: none;
-  border-radius: 50px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #a94f78,
-      #d36d9b
-    );
-
-  color: white;
-
-  font-size: 20px;
-  font-weight: bold;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 8px 25px rgba(150,60,100,.25);
-
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease;
-}
-
-button:hover {
-  transform: translateY(-3px) scale(1.03);
-
-  box-shadow:
-    0 12px 30px rgba(150,60,100,.35);
-}
-
-
-/* =========================
-   ПИСЬМО
-========================= */
-
-.letter {
-  padding: 60px 40px;
-
-  border-radius: 32px;
-
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(255,255,255,.9),
-      transparent 24%
-    ),
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(255,190,215,.45),
-      transparent 30%
-    ),
-    linear-gradient(
-      145deg,
-      #fff0df,
-      #ffe0eb 50%,
-      #f6e3f5
-    );
-}
-
-.letter::before {
-  content: "🎂";
-
-  position: absolute;
-
-  top: 15px;
-  left: 20px;
-
-  font-size: 44px;
-}
-
-.letter::after {
-  content: "🦫";
-
-  position: absolute;
-
-  top: 15px;
-  right: 20px;
-
-  font-size: 44px;
-}
-
-.flower {
-  font-size: 60px;
-
-  animation: flowerFloat 3s infinite ease-in-out;
-}
-
-@keyframes flowerFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-.letterText {
-  margin-top: 30px;
-
-  position: relative;
-  z-index: 2;
-}
-
-.letterText p {
-  margin: 25px 0;
-
-  font-size: 25px;
-  line-height: 1.7;
-
-  color: #583746;
-}
-
-.signature {
-  margin-top: 40px;
-
-  font-size: 25px;
-  font-style: italic;
-
-  color: #914d6b;
-}
-
-
-/* =========================
-   ВОСПОМИНАНИЯ
-========================= */
-
-.memories {
-  padding: 45px 25px;
-
-  border-radius: 38px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,247,241,.98),
-      rgba(255,224,238,.96)
-    );
-}
-
-.memories::before {
-  content: "🎈  🎂  🦫  💕";
-
-  position: absolute;
-
-  top: 12px;
-  left: 15px;
-
-  font-size: 28px;
-
-  opacity: .7;
-}
-
-.memories::after {
-  content: "💕  🦫  🎂  🎈";
-
-  position: absolute;
-
-  top: 12px;
-  right: 15px;
-
-  font-size: 28px;
-
-  opacity: .7;
-}
-
-
-/* =========================
-   МУЗЫКА
-========================= */
-
-audio {
-  display: block;
-
-  width: 100%;
-  max-width: 500px;
-
-  margin: 20px auto;
-}
-
-
-/* =========================
-   ФОТО
-========================= */
-
-#slideshow {
-  width: 100%;
-  max-width: 600px;
-
-  margin: 35px auto;
-}
-
-#slideImage {
-  display: block;
-
-  width: 100%;
-  max-width: 100%;
-
-  height: auto;
-
-  max-height: 500px;
-
-  object-fit: contain;
-
-  margin: 0 auto;
-
-  border: 7px solid rgba(255,255,255,.9);
-
-  border-radius: 25px;
-
-  box-shadow:
-    0 20px 50px rgba(0,0,0,.22);
-
-  opacity: 1;
-
-  transition: opacity .8s ease;
-}
-
-.photoCounter {
-  margin-top: 15px;
-
-  font-size: 20px;
-
-  color: #74445b;
-}
-
-
-/* =========================
-   ФИНАЛ
-========================= */
-
-.final-screen {
-  padding: 60px 35px;
-
-  border-radius: 40px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fff0da,
-      #ffdce9,
-      #e9ddff
-    );
-}
-
-.final-cake {
-  font-size: 110px;
-
-  animation: cakeFloat 2.5s infinite ease-in-out;
-}
-
-@keyframes cakeFloat {
-  0%, 100% {
-    transform:
-      translateY(0)
-      rotate(-2deg);
-  }
-
-  50% {
-    transform:
-      translateY(-12px)
-      rotate(2deg);
-  }
-}
-
-.final-title {
-  margin: 20px 0;
-
-  font-size: 46px;
-
-  color: #71344f;
-}
-
-.final-text {
-  font-size: 25px;
-  line-height: 1.7;
-
-  color: #583746;
-}
-
-
-/* =========================
-   СЕКРЕТ
-========================= */
-
-.secret-screen {
-  padding: 60px 35px;
-
-  border-radius: 40px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #ffe5ef,
-      #f4dcff,
-      #dfe5ff
-    );
-}
-
-.secret-heart {
-  font-size: 90px;
-
-  animation: heartBeat 1.5s infinite;
-}
-
-.secret-title {
-  font-size: 42px;
-
-  color: #71344f;
-}
-
-.secret-message {
-  font-size: 27px;
-  line-height: 1.8;
-
-  color: #573546;
-}
-
-
-/* =========================
-   ОТКРЫТИЕ
-========================= */
-
-.gift-opening {
-  animation: giftOpen .9s ease forwards;
-}
-
-@keyframes giftOpen {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  35% {
-    transform:
-      scale(1.04)
-      rotate(-1deg);
-  }
-
-  65% {
-    transform:
-      scale(1.06)
-      rotate(1deg);
-  }
-
-  100% {
-    transform:
-      scale(.85);
-
-    opacity: 0;
-  }
-}
-
-button:disabled {
-  opacity: .7;
-  cursor: default;
-}
-
-
-/* =========================
-   ПЛАНШЕТ
-========================= */
-
-@media (max-width: 800px) {
-
-  body {
-    padding: 20px 8px;
-  }
-
-  #app {
-    width: 100%;
-    max-width: 680px;
-  }
-
-  .side-decor {
-    width: 42px;
-  }
-
-  .side-decor span {
-    font-size: 25px;
-  }
-
-  .gift,
-  .letter,
-  .memories,
-  .final-screen,
-  .secret-screen {
-    padding: 45px 25px;
-  }
-}
-
-
-/* =========================
-   ТЕЛЕФОН
-========================= */
-
-@media (max-width: 600px) {
-
-  body {
-    display: block;
-
-    width: 100%;
-    min-height: 100vh;
-
-    padding: 15px 8px;
-  }
-
-  #app {
-    width: 100%;
-    max-width: 100%;
-
-    margin: 0 auto;
-  }
-
-  .gift,
-  .letter,
-  .memories,
-  .final-screen,
-  .secret-screen {
-    width: 100%;
-    max-width: 100%;
-
-    padding: 38px 18px;
-
-    border-radius: 25px;
-  }
-
-  h1 {
-    font-size: 30px;
-    line-height: 1.25;
-
-    overflow-wrap: break-word;
-  }
-
-  h2 {
-    font-size: 24px;
-  }
-
-  p {
-    font-size: 18px;
-    line-height: 1.5;
-  }
-
-  .heart {
-    font-size: 50px;
-  }
-
-  .envelope {
-    margin: 20px 0;
-
-    font-size: 80px;
-  }
-
-  button {
-    width: auto;
-    max-width: 100%;
-
-    padding: 15px 20px;
-
-    font-size: 17px;
-
-    white-space: normal;
-  }
-
-  .letterText p {
-    font-size: 19px;
-    line-height: 1.55;
-  }
-
-  .signature {
-    font-size: 21px;
-  }
-
-  .memories {
-    padding-top: 55px;
-  }
-
-  #slideshow {
-    width: 100%;
-    max-width: 100%;
-
-    margin: 25px auto;
-  }
-
-  #slideImage {
-    width: 100%;
-    max-width: 100%;
-
-    height: auto;
-
-    max-height: 60vh;
-
-    object-fit: contain;
-
-    border-width: 4px;
-
-    border-radius: 18px;
-  }
-
-  audio {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .final-cake {
-    font-size: 80px;
-  }
-
-  .final-title {
-    font-size: 31px;
-    line-height: 1.25;
-  }
-
-  .final-text {
-    font-size: 19px;
-    line-height: 1.55;
-  }
-
-  .secret-heart {
-    font-size: 70px;
-  }
-
-  .secret-title {
-    font-size: 30px;
-  }
-
-  .secret-message {
-    font-size: 19px;
-    line-height: 1.55;
-  }
-
-  .side-decor {
-    width: 22px;
-  }
-
-  .side-decor span {
-    font-size: 17px;
-  }
-
-  .gift::before,
-  .gift::after,
-  .letter::before,
-  .letter::after {
-    font-size: 23px;
-  }
-
-  .memories::before,
-  .memories::after {
-    font-size: 20px;
-  }
-}
-
-
-/* =========================
-   ОЧЕНЬ МАЛЕНЬКИЙ ЭКРАН
-========================= */
-
-@media (max-width: 380px) {
-
-  body {
-    padding: 10px 5px;
-  }
-
-  .gift,
-  .letter,
-  .memories,
-  .final-screen,
-  .secret-screen {
-    padding: 32px 14px;
-  }
-
-  h1 {
-    font-size: 27px;
-  }
-
-  h2 {
-    font-size: 22px;
-  }
-
-  p,
-  .letterText p,
-  .final-text,
-  .secret-message {
-    font-size: 17px;
-  }
-
-  .envelope {
-    font-size: 70px;
-  }
-
-  button {
-    font-size: 16px;
-    padding: 14px 17px;
-  }
-}
+1
