@@ -7,9 +7,9 @@ let photoDuration = 7100;
 let slideshowStarted = false;
 
 
-/* =================================
+/* =========================
    GITHUB
-================================= */
+========================= */
 
 const GITHUB_API =
   "https://api.github.com/repos/artemy13111978-creator/mama-gift/contents/?ref=main";
@@ -23,330 +23,180 @@ const IMAGE_EXTENSIONS = [
 ];
 
 
-/* =================================
-   ЛЕТЯЩИЕ СЕРДЕЧКИ
-================================= */
-
-function createHeart() {
-
-  const container =
-    document.getElementById("hearts");
-
-  if (!container) return;
-
-  const heart =
-    document.createElement("span");
-
-  heart.className =
-    "flying-heart";
-
-  heart.textContent =
-    Math.random() > 0.5
-      ? "❤️"
-      : "💕";
-
-  heart.style.left =
-    Math.random() * 100 + "%";
-
-  heart.style.fontSize =
-    (18 + Math.random() * 22) + "px";
-
-  heart.style.animationDuration =
-    (5 + Math.random() * 5) + "s";
-
-  heart.style.setProperty(
-    "--move",
-    ((Math.random() - 0.5) * 180) + "px"
-  );
-
-  container.appendChild(heart);
-
-  setTimeout(
-    function () {
-      heart.remove();
-    },
-    10000
-  );
-}
-
-
-function startHeartAnimation() {
-
-  createHeart();
-
-  setInterval(
-    createHeart,
-    900
-  );
-
-}
-
-
-/* =================================
-   КРАСИВОЕ ОТКРЫТИЕ ПОДАРКА
-================================= */
+/* =========================
+   ПЕРВЫЙ ЭКРАН
+========================= */
 
 document
   .getElementById("openButton")
-  .addEventListener(
-    "click",
-    function () {
+  .addEventListener("click", function () {
 
-      const gift =
-        document.querySelector(".gift");
+    app.innerHTML = `
 
-      if (!gift) return;
+      <div class="letter">
 
+        <div class="flower">💗</div>
 
-      gift.classList.add(
-        "gift-opening"
-      );
+        <h1>Мамочка ❤️</h1>
 
+        <p>
+          У меня для тебя есть<br>
+          кое-что очень важное...
+        </p>
 
-      for (
-        let i = 0;
-        i < 12;
-        i++
-      ) {
+        <button id="letterButton">
+          Открыть письмо 💌
+        </button>
 
-        setTimeout(
-          function () {
-            createHeart();
-          },
-          i * 100
-        );
-
-      }
-
-
-      setTimeout(
-        function () {
-
-          showLetter();
-
-        },
-        900
-      );
-
-    }
-  );
-
-
-/* =================================
-   ПИСЬМО
-================================= */
-
-function showLetter() {
-
-  app.innerHTML = `
-
-    <div class="letter">
-
-      <div class="flower">
-        💗
       </div>
 
-      <h1>
-        Мамочка ❤️
-      </h1>
+    `;
 
-      <p>
-        У меня для тебя есть<br>
-        кое-что очень важное...
-      </p>
-
-      <button id="letterButton">
-        Открыть письмо 💌
-      </button>
-
-    </div>
-
-  `;
-
-  startHeartAnimation();
-
-}
+  });
 
 
-/* =================================
+/* =========================
    КНОПКИ
-================================= */
+========================= */
 
-document.addEventListener(
-  "click",
-  function (event) {
+document.addEventListener("click", function (event) {
 
 
-    if (
-      event.target.id ===
-      "letterButton"
-    ) {
+  /* ОТКРЫТЬ ПИСЬМО */
 
-      event.target.disabled =
-        true;
+  if (event.target.id === "letterButton") {
 
-      app.innerHTML = `
+    app.innerHTML = `
 
-        <div class="letter">
+      <div class="letter">
 
-          <div class="flower">
-            🌷
-          </div>
+        <div class="flower">🌷</div>
 
-          <h1>
-            Мамочка ❤️
-          </h1>
+        <h1>Мамочка ❤️</h1>
 
-          <div class="letterText">
+        <div class="letterText">
 
-            <p>
-              Мам, я тебя очень сильно люблю.
-            </p>
-
-            <p>
-              Спасибо тебе за всё!!!
-            </p>
-
-            <p>
-              Оставайся всегда рядом, пожалуйста ❤️
-            </p>
-
-          </div>
-
-          <div class="signature">
-            С любовью ❤️
-          </div>
-
-          <button id="memoriesButton">
-            Наши воспоминания 📸
-          </button>
-
-        </div>
-
-      `;
-
-      startHeartAnimation();
-
-    }
-
-
-    /* =============================
-       ВОСПОМИНАНИЯ
-    ============================= */
-
-    if (
-      event.target.id ===
-      "memoriesButton"
-    ) {
-
-      app.innerHTML = `
-
-        <div class="memories">
-
-          <div class="heart">
-            📸
-          </div>
-
-          <h1>
-            Наши воспоминания
-          </h1>
-
-          <p id="loadingText">
-            Загружаю наши фотографии ❤️
+          <p>
+            Мам, я тебя очень сильно люблю.
           </p>
 
-          <audio
-            id="music"
-            controls
-            preload="auto"
-          >
+          <p>
+            Спасибо тебе за всё!!!
+          </p>
 
-            <source
-              src="https://raw.githubusercontent.com/artemy13111978-creator/mama-gift/main/Alex_Lim_Igor_Krutojj_-_Vokzal_80103811.mp3"
-              type="audio/mpeg"
-            >
-
-          </audio>
-
-          <div id="slideshow"></div>
+          <p>
+            Оставайся всегда рядом, пожалуйста ❤️
+          </p>
 
         </div>
 
-      `;
+        <div class="signature">
+          С любовью ❤️
+        </div>
 
+        <button id="memoriesButton">
+          Наши воспоминания 📸
+        </button>
 
-      const music =
-        document.getElementById(
-          "music"
-        );
+      </div>
 
-
-      music.volume = 0.7;
-
-
-      music.addEventListener(
-        "play",
-        function () {
-
-          if (
-            !slideshowStarted
-          ) {
-
-            startSlideshow(music);
-
-          }
-
-        }
-      );
-
-
-      music.addEventListener(
-        "ended",
-        function () {
-
-          clearInterval(
-            slideshowTimer
-          );
-
-          slideshowTimer = null;
-
-        }
-      );
-
-
-      music
-        .play()
-        .catch(
-          function () {
-
-            console.log(
-              "Автозапуск музыки заблокирован."
-            );
-
-          }
-        );
-
-
-      loadPhotosFromGitHub();
-
-      startHeartAnimation();
-
-    }
+    `;
 
   }
-);
 
 
-/* =================================
-   ФОТОГРАФИИ
-================================= */
+  /* =========================
+     НАШИ ВОСПОМИНАНИЯ
+  ========================= */
+
+  if (event.target.id === "memoriesButton") {
+
+    app.innerHTML = `
+
+      <div class="memories">
+
+        <div class="heart">
+          📸
+        </div>
+
+        <h1>
+          Наши воспоминания
+        </h1>
+
+        <p id="loadingText">
+          Загружаю наши фотографии ❤️
+        </p>
+
+        <audio
+          id="music"
+          controls
+          preload="auto"
+        >
+
+          <source
+            src="https://raw.githubusercontent.com/artemy13111978-creator/mama-gift/main/Alex_Lim_Igor_Krutojj_-_Vokzal_80103811.mp3"
+            type="audio/mpeg"
+          >
+
+        </audio>
+
+        <div id="slideshow"></div>
+
+      </div>
+
+    `;
+
+
+    const music =
+      document.getElementById("music");
+
+
+    music.volume = 0.7;
+
+
+    /* Когда музыка начинает играть —
+       запускаем фотографии */
+
+    music.addEventListener(
+      "play",
+      function () {
+
+        if (!slideshowStarted) {
+
+          startSlideshow(music);
+
+        }
+
+      }
+    );
+
+
+    /* Пытаемся запустить музыку */
+
+    music.play().catch(function () {
+
+      console.log(
+        "Нажми Play, чтобы включить музыку."
+      );
+
+    });
+
+
+    loadPhotosFromGitHub();
+
+  }
+
+});
+
+
+/* =========================
+   ЗАГРУЗКА ФОТО
+========================= */
 
 async function loadPhotosFromGitHub() {
 
   const loadingText =
-    document.getElementById(
-      "loadingText"
-    );
+    document.getElementById("loadingText");
 
 
   try {
@@ -379,62 +229,56 @@ async function loadPhotosFromGitHub() {
 
     photos = files
 
-      .filter(
-        function (file) {
+      .filter(function (file) {
 
-          if (
-            file.type !== "file"
-          ) {
+        if (file.type !== "file") {
+          return false;
+        }
 
-            return false;
+
+        const name =
+          file.name.toLowerCase();
+
+
+        return IMAGE_EXTENSIONS.some(
+          function (extension) {
+
+            return name.endsWith(
+              extension
+            );
 
           }
+        );
+
+      })
 
 
-          const name =
-            file.name.toLowerCase();
+      .sort(function (a, b) {
+
+        return a.name.localeCompare(
+          b.name,
+          undefined,
+          {
+            numeric: true,
+            sensitivity: "base"
+          }
+        );
+
+      })
 
 
-          return IMAGE_EXTENSIONS.some(
-            function (extension) {
+      .map(function (file) {
 
-              return name.endsWith(
-                extension
-              );
+        return file.download_url;
 
-            }
-          );
-
-        }
-      )
-
-      .sort(
-        function (a, b) {
-
-          return a.name.localeCompare(
-            b.name,
-            undefined,
-            {
-              numeric: true,
-              sensitivity: "base"
-            }
-          );
-
-        }
-      )
-
-      .map(
-        function (file) {
-
-          return file.download_url;
-
-        }
-      );
+      });
 
 
-    if (
-      photos.length === 0
-    ) {
+    /* =========================
+       ФОТО НЕ НАЙДЕНЫ
+    ========================= */
+
+    if (photos.length === 0) {
 
       loadingText.textContent =
         "Фотографии не найдены 😔";
@@ -444,19 +288,22 @@ async function loadPhotosFromGitHub() {
     }
 
 
+    /* =========================
+       ФОТО НАЙДЕНЫ
+    ========================= */
+
     loadingText.textContent =
       "Здесь наши самые тёплые моменты ❤️";
 
 
     currentPhoto = 0;
 
+
     showFirstPhoto();
 
 
     const music =
-      document.getElementById(
-        "music"
-      );
+      document.getElementById("music");
 
 
     if (
@@ -487,16 +334,14 @@ async function loadPhotosFromGitHub() {
 }
 
 
-/* =================================
+/* =========================
    ПЕРВАЯ ФОТОГРАФИЯ
-================================= */
+========================= */
 
 function showFirstPhoto() {
 
   const slideshow =
-    document.getElementById(
-      "slideshow"
-    );
+    document.getElementById("slideshow");
 
 
   if (
@@ -526,9 +371,9 @@ function showFirstPhoto() {
 }
 
 
-/* =================================
-   СЛАЙД-ШОУ
-================================= */
+/* =========================
+   ЗАПУСК СЛАЙД-ШОУ
+========================= */
 
 function startSlideshow(music) {
 
@@ -550,11 +395,19 @@ function startSlideshow(music) {
   );
 
 
+  /* =========================
+     ВЫЧИСЛЯЕМ ВРЕМЯ
+     
+     Например:
+     3:33 = 213 секунд
+
+     213 / 30 =
+     примерно 7.1 сек на фото
+  ========================= */
+
   if (
     music &&
-    Number.isFinite(
-      music.duration
-    ) &&
+    Number.isFinite(music.duration) &&
     music.duration > 0
   ) {
 
@@ -580,6 +433,10 @@ function startSlideshow(music) {
         currentPhoto++;
 
 
+        /* =========================
+           ПОСЛЕДНЕЕ ФОТО
+        ========================= */
+
         if (
           currentPhoto >=
           photos.length
@@ -593,12 +450,6 @@ function startSlideshow(music) {
 
           currentPhoto =
             photos.length - 1;
-
-
-          setTimeout(
-            showFinalScreen,
-            1000
-          );
 
           return;
 
@@ -614,9 +465,9 @@ function startSlideshow(music) {
 }
 
 
-/* =================================
+/* =========================
    ПОКАЗ ФОТО
-================================= */
+========================= */
 
 function showPhoto() {
 
@@ -624,6 +475,7 @@ function showPhoto() {
     document.getElementById(
       "slideImage"
     );
+
 
   const counter =
     document.querySelector(
@@ -641,8 +493,7 @@ function showPhoto() {
   }
 
 
-  image.style.opacity =
-    "0";
+  image.style.opacity = "0";
 
 
   setTimeout(
@@ -652,8 +503,7 @@ function showPhoto() {
         photos[currentPhoto];
 
 
-      image.style.opacity =
-        "1";
+      image.style.opacity = "1";
 
 
       if (counter) {
@@ -670,131 +520,3 @@ function showPhoto() {
   );
 
 }
-
-
-/* =================================
-   ФИНАЛ
-================================= */
-
-function showFinalScreen() {
-
-  clearInterval(
-    slideshowTimer
-  );
-
-  slideshowTimer = null;
-
-
-  app.innerHTML = `
-
-    <div class="final-screen">
-
-      <div class="final-cake">
-        🎂
-      </div>
-
-      <div class="heart">
-        ❤️
-      </div>
-
-      <div class="final-title">
-        Мамочка, с праздником! 🎉
-      </div>
-
-      <div class="final-text">
-
-        <p>
-          Спасибо тебе за всё,
-          что ты для меня делаешь.
-        </p>
-
-        <p>
-          Я очень тебя люблю ❤️
-        </p>
-
-        <p>
-          И хочу, чтобы ты всегда
-          улыбалась и была счастлива!
-        </p>
-
-      </div>
-
-      <button id="secretButton">
-        А здесь ещё кое-что для тебя… ❤️
-      </button>
-
-    </div>
-
-  `;
-
-
-  startHeartAnimation();
-
-}
-
-
-/* =================================
-   СЕКРЕТНЫЙ СЮРПРИЗ
-================================= */
-
-document.addEventListener(
-  "click",
-  function (event) {
-
-    if (
-      event.target.id ===
-      "secretButton"
-    ) {
-
-      app.innerHTML = `
-
-        <div class="secret-screen">
-
-          <div class="secret-heart">
-            ❤️
-          </div>
-
-          <div class="secret-title">
-            Самое главное...
-          </div>
-
-          <div class="secret-message">
-
-            <p>
-              Мамочка, что бы ни случилось,
-              я всегда буду рядом.
-            </p>
-
-            <p>
-              Ты для меня самый родной
-              и дорогой человек.
-            </p>
-
-            <p>
-              Я тебя очень-очень люблю! ❤️
-            </p>
-
-            <p>
-              Спасибо, что ты у меня есть.
-            </p>
-
-            <p>
-              Твой сын ❤️
-            </p>
-
-          </div>
-
-          <div class="final-cake">
-            🎂💕🎈
-          </div>
-
-        </div>
-
-      `;
-
-      startHeartAnimation();
-
-    }
-
-  }
-);
