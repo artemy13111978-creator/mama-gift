@@ -1,397 +1,65 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Мамин подарок ❤️</title>
+  <title>Для моей любимой мамы ❤️</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #fff0f5, #ffe0eb, #f5e6ff);
-  font-family: Georgia, serif;
-  color: #5a3043;
-}
-
-#app {
-  width: 90%;
-  max-width: 750px;
-}
-
-.gift,
-.letter,
-.memories {
-  padding: 45px 30px;
-  text-align: center;
-  background: rgba(255,255,255,0.96);
-  border-radius: 30px;
-  box-shadow: 0 20px 60px rgba(90,40,70,0.18);
-}
-
-.heart {
-  font-size: 60px;
-}
-
-h1 {
-  font-size: 42px;
-  margin: 15px 0;
-}
-
-h2 {
-  font-size: 30px;
-  font-weight: normal;
-}
-
-p {
-  font-size: 23px;
-  line-height: 1.6;
-}
-
-.envelope {
-  font-size: 120px;
-  margin: 25px 0;
-}
-
-button,
-.photoButton {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 18px 30px;
-  border: none;
-  border-radius: 50px;
-  background: #9b4f72;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-button:hover,
-.photoButton:hover {
-  transform: scale(1.05);
-}
-
-.flower {
-  font-size: 60px;
-}
-
-.letterText {
-  margin-top: 30px;
-}
-
-.letterText p {
-  font-size: 25px;
-  line-height: 1.7;
-  margin: 25px 0;
-}
-
-.signature {
-  margin-top: 40px;
-  font-size: 24px;
-  font-style: italic;
-}
-
-.photoButton input {
-  display: none;
-}
-
-#slideshow {
-  width: 100%;
-  max-width: 600px;
-  margin: 35px auto;
-  text-align: center;
-}
-
-#slideImage {
-  display: block;
-  width: 100%;
-  max-height: 500px;
-  object-fit: contain;
-  margin: 0 auto;
-  border-radius: 25px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-  opacity: 1;
-  transition: opacity 0.8s ease;
-}
-
-.photoCounter {
-  font-size: 20px;
-  margin-top: 15px;
-}
-
-.musicBox {
-  margin-top: 30px;
-  padding: 20px;
-  background: #fff0f5;
-  border-radius: 20px;
-}
-
-.musicBox p {
-  font-size: 20px;
-  margin: 5px 0 15px;
-}
-
-audio {
-  width: 100%;
-  max-width: 500px;
-}
-</style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="app">
-
-  <div class="gift">
-
-    <div class="heart">❤️</div>
-
-    <h1>Для моей любимой мамы</h1>
-
-    <h2>Ольга ❤️</h2>
-
-    <div class="envelope">💌</div>
-
-    <p>У меня для тебя кое-что особенное...</p>
-
-    <button id="openButton">
-      Открыть подарок 🎁
-    </button>
-
+  <!-- Декорации по краям -->
+  <div class="side-decor left" aria-hidden="true">
+    <span>🎈</span>
+    <span>🎂</span>
+    <span>🦫</span>
+    <span>💕</span>
+    <span>🎈</span>
+    <span>🦫</span>
   </div>
 
-</div>
+  <div class="side-decor right" aria-hidden="true">
+    <span>🎈</span>
+    <span>💕</span>
+    <span>🎂</span>
+    <span>🦫</span>
+    <span>🎈</span>
+    <span>🎂</span>
+  </div>
 
-<script>
-const app = document.getElementById("app");
+  <!-- Летающие сердечки -->
+  <div id="hearts" aria-hidden="true"></div>
 
-let photos = [];
-let currentPhoto = 0;
-let slideshowTimer = null;
+  <div id="app">
 
+    <!-- ПЕРВЫЙ ЭКРАН -->
 
-/* ОТКРЫТЬ ПОДАРОК */
+    <div class="gift">
 
-document.getElementById("openButton").addEventListener("click", function() {
+      <div class="heart">❤️</div>
 
-  app.innerHTML = `
-    <div class="letter">
+      <h1>Для моей любимой мамы</h1>
 
-      <div class="flower">💗</div>
+      <h2>Ольга ❤️</h2>
 
-      <h1>Мамочка ❤️</h1>
+      <div class="envelope">💌</div>
 
       <p>
-        У меня для тебя есть<br>
-        кое-что очень важное...
+        У меня для тебя кое-что особенное...
       </p>
 
-      <button id="letterButton">
-        Открыть письмо 💌
+      <button id="openButton">
+        Открыть подарок 🎁
       </button>
 
     </div>
-  `;
 
-});
+  </div>
 
-
-/* КНОПКИ */
-
-document.addEventListener("click", function(event) {
-
-  /* ОТКРЫТЬ ПИСЬМО */
-
-  if (event.target.id === "letterButton") {
-
-    app.innerHTML = `
-
-      <div class="letter">
-
-        <div class="flower">🌷</div>
-
-        <h1>Мамочка ❤️</h1>
-
-        <div class="letterText">
-
-          <p>
-            Мам, я тебя очень сильно люблю.
-          </p>
-
-          <p>
-            Спасибо тебе за всё!!!
-          </p>
-
-          <p>
-            Оставайся всегда рядом, пожалуйста ❤️
-          </p>
-
-        </div>
-
-        <div class="signature">
-          С любовью ❤️
-        </div>
-
-        <button id="memoriesButton">
-          Наши воспоминания 📸
-        </button>
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* ВОСПОМИНАНИЯ */
-
-  if (event.target.id === "memoriesButton") {
-
-    app.innerHTML = `
-
-      <div class="memories">
-
-        <div class="heart">📸</div>
-
-        <h1>Наши воспоминания</h1>
-
-        <p>
-          Самые тёплые моменты ❤️
-        </p>
-
-        <label class="photoButton">
-
-          📸 Выбрать фотографии
-
-          <input
-            type="file"
-            id="photoInput"
-            accept="image/*"
-            multiple
-          >
-
-        </label>
-
-        <div id="slideshow"></div>
-
-        <div class="musicBox">
-
-          <p>🎵 Музыка для тебя</p>
-
-          <audio controls>
-            <source
-              src="Alex_Lim_Igor_Krutojj_-_Vokzal_80103811.mp3"
-              type="audio/mpeg"
-            >
-            Твой браузер не поддерживает музыку.
-          </audio>
-
-        </div>
-
-      </div>
-
-    `;
-
-
-    const input = document.getElementById("photoInput");
-
-
-    input.addEventListener("change", function() {
-
-      photos = [];
-
-      for (const file of input.files) {
-        photos.push(URL.createObjectURL(file));
-      }
-
-      if (photos.length > 0) {
-
-        currentPhoto = 0;
-
-        startSlideshow();
-
-      }
-
-    });
-
-  }
-
-});
-
-
-/* СЛАЙД-ШОУ */
-
-function startSlideshow() {
-
-  const slideshow = document.getElementById("slideshow");
-
-  slideshow.innerHTML = `
-
-    <img id="slideImage">
-
-    <div class="photoCounter"></div>
-
-  `;
-
-  showPhoto();
-
-  clearInterval(slideshowTimer);
-
-  if (photos.length > 1) {
-
-    slideshowTimer = setInterval(function() {
-
-      currentPhoto++;
-
-      if (currentPhoto >= photos.length) {
-        currentPhoto = 0;
-      }
-
-      showPhoto();
-
-    }, 4000);
-
-  }
-
-}
-
-
-/* ПОКАЗ ФОТО */
-
-function showPhoto() {
-
-  const image = document.getElementById("slideImage");
-  const counter = document.querySelector(".photoCounter");
-
-  if (!image) {
-    return;
-  }
-
-  image.style.opacity = "0";
-
-  setTimeout(function() {
-
-    image.src = photos[currentPhoto];
-
-    image.style.opacity = "1";
-
-    counter.textContent =
-      (currentPhoto + 1) + " / " + photos.length;
-
-  }, 300);
-
-}
-</script>
+  <script src="script.js"></script>
 
 </body>
 </html>
