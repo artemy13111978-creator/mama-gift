@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Для моей любимой мамы ❤️</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Декорации по краям -->
+  <div class="side-decor left" aria-hidden="true">
+    <span>🎈</span>
+    <span>🎂</span>
+    <span>🦫</span>
+    <span>💕</span>
+    <span>🎈</span>
+    <span>🦫</span>
+  </div>
+
+  <div class="side-decor right" aria-hidden="true">
+    <span>🎈</span>
+    <span>💕</span>
+    <span>🎂</span>
+    <span>🦫</span>
+    <span>🎈</span>
+    <span>🎂</span>
+  </div>
+
+  <!-- Летающие сердечки -->
+  <div id="hearts" aria-hidden="true"></div>
+
+  <div id="app">
+
+    <!-- ПЕРВЫЙ ЭКРАН -->
+
+    <div class="gift">
+
+      <div class="heart">❤️</div>
+
+      <h1>Для моей любимой мамы</h1>
+
+      <h2>Ольга ❤️</h2>
+
+      <div class="envelope">💌</div>
+
+      <p>
+        У меня для тебя кое-что особенное...
+      </p>
+
+      <button id="openButton">
+        Открыть подарок 🎁
+      </button>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
