@@ -11,54 +11,29 @@ body {
 
 body {
   min-height: 100vh;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
+  font-family: Georgia, "Times New Roman", serif;
   color: #5a3043;
 
   background:
-    radial-gradient(
-      circle at 10% 10%,
-      rgba(255, 255, 255, 0.95),
-      transparent 24%
-    ),
-    radial-gradient(
-      circle at 90% 15%,
-      rgba(255, 190, 215, 0.8),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 15% 85%,
-      rgba(220, 200, 255, 0.7),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 85% 90%,
-      rgba(255, 225, 180, 0.65),
-      transparent 28%
-    ),
-    linear-gradient(
-      135deg,
-      #ffd8e7,
-      #f5d9ef,
-      #e5dcff
-    );
+    radial-gradient(circle at 10% 10%, rgba(255,255,255,.95), transparent 25%),
+    radial-gradient(circle at 90% 15%, rgba(255,190,215,.8), transparent 30%),
+    radial-gradient(circle at 15% 85%, rgba(220,200,255,.7), transparent 30%),
+    radial-gradient(circle at 85% 90%, rgba(255,225,180,.65), transparent 30%),
+    linear-gradient(135deg, #ffd8e7, #f5d9ef, #e5dcff);
 
   overflow-x: hidden;
 }
 
-/* =================================
+/* =========================
    ОСНОВА
-================================= */
+========================= */
 
 #app {
-  width: min(900px, calc(100% - 180px));
+  width: min(1100px, calc(100% - 180px));
   min-height: 100vh;
 
   margin: 0 auto;
+  padding: 35px 0;
 
   display: flex;
   align-items: center;
@@ -66,17 +41,14 @@ body {
 
   position: relative;
   z-index: 2;
-
-  padding: 40px 0;
 }
 
-/* =================================
+/* =========================
    БОКОВОЙ ДЕКОР
-================================= */
+========================= */
 
 .side-decor {
   position: fixed;
-
   top: 0;
   bottom: 0;
 
@@ -88,7 +60,6 @@ body {
   align-items: center;
 
   pointer-events: none;
-
   z-index: 1;
 }
 
@@ -101,40 +72,16 @@ body {
 }
 
 .side-decor span {
-  font-size: 42px;
+  font-size: 46px;
 
   filter:
-    drop-shadow(
-      0 5px 6px rgba(70, 30, 50, 0.15)
-    );
+    drop-shadow(0 5px 6px rgba(70,30,50,.15));
 
-  animation:
-    floatingDecor 4s ease-in-out infinite;
-}
-
-.side-decor span:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-.side-decor span:nth-child(3) {
-  animation-delay: 1s;
-}
-
-.side-decor span:nth-child(4) {
-  animation-delay: 1.5s;
-}
-
-.side-decor span:nth-child(5) {
-  animation-delay: 2s;
-}
-
-.side-decor span:nth-child(6) {
-  animation-delay: 2.5s;
+  animation: floatingDecor 4s ease-in-out infinite;
 }
 
 @keyframes floatingDecor {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0) rotate(-4deg);
   }
 
@@ -143,17 +90,15 @@ body {
   }
 }
 
-/* =================================
-   ЛЕТАЮЩИЕ СЕРДЦА
-================================= */
+/* =========================
+   СЕРДЕЧКИ
+========================= */
 
 #hearts {
   position: fixed;
-
   inset: 0;
 
   overflow: hidden;
-
   pointer-events: none;
 
   z-index: 20;
@@ -161,19 +106,14 @@ body {
 
 .flying-heart {
   position: absolute;
-
   bottom: -60px;
 
-  animation:
-    flyingHeart linear forwards;
+  animation: flyingHeart linear forwards;
 }
 
 @keyframes flyingHeart {
   0% {
-    transform:
-      translate(0, 0)
-      scale(0.8);
-
+    transform: translate(0,0) scale(.8);
     opacity: 0;
   }
 
@@ -182,17 +122,14 @@ body {
   }
 
   100% {
-    transform:
-      translate(var(--move), -110vh)
-      scale(1.2);
-
+    transform: translate(var(--move), -110vh) scale(1.2);
     opacity: 0;
   }
 }
 
-/* =================================
-   ОБЩИЕ КАРТОЧКИ
-================================= */
+/* =========================
+   ОБЩИЕ ЭКРАНЫ
+========================= */
 
 .gift,
 .letter,
@@ -203,72 +140,40 @@ body {
 
   text-align: center;
 
-  position: relative;
-
-  overflow: hidden;
-
   border-radius: 35px;
 
-  border:
-    2px solid
-    rgba(255, 255, 255, 0.85);
+  border: 2px solid rgba(255,255,255,.9);
 
   box-shadow:
-    0 25px 70px
-    rgba(100, 45, 80, 0.22);
+    0 25px 70px rgba(100,45,80,.22);
+
+  position: relative;
+  overflow: hidden;
 }
 
-/* =================================
+/* =========================
    ПОДАРОК
-================================= */
+========================= */
 
 .gift {
-  padding: 60px 40px;
+  padding: 65px 50px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255, 250, 246, 0.98),
-      rgba(255, 225, 238, 0.97)
+      rgba(255,250,246,.98),
+      rgba(255,225,238,.97)
     );
 }
 
-.gift::before {
-  content: "🎂   ✨   💕";
-
-  position: absolute;
-
-  top: 18px;
-  left: 25px;
-
-  font-size: 30px;
-
-  opacity: 0.75;
-}
-
-.gift::after {
-  content: "💕   ✨   🦫";
-
-  position: absolute;
-
-  right: 25px;
-  bottom: 18px;
-
-  font-size: 30px;
-
-  opacity: 0.75;
-}
-
 .big-heart {
-  font-size: 75px;
+  font-size: 90px;
 
-  animation:
-    heartbeat 2s ease-in-out infinite;
+  animation: heartbeat 2s ease-in-out infinite;
 }
 
 @keyframes heartbeat {
-  0%,
-  100% {
+  0%,100% {
     transform: scale(1);
   }
 
@@ -278,45 +183,38 @@ body {
 }
 
 h1 {
-  margin: 18px 0;
+  margin: 20px 0;
 
-  font-size: 46px;
+  font-size: 52px;
+  line-height: 1.2;
 
   color: #71344f;
-
-  text-shadow:
-    0 2px 8px
-    rgba(120, 50, 80, 0.12);
 }
 
 h2 {
-  margin: 10px 0;
+  margin: 12px 0;
 
-  font-size: 31px;
-
+  font-size: 36px;
   font-weight: normal;
 
   color: #95516e;
 }
 
 p {
-  font-size: 23px;
-
-  line-height: 1.6;
+  font-size: 28px;
+  line-height: 1.65;
 }
 
 .envelope {
   margin: 30px 0;
 
-  font-size: 125px;
+  font-size: 130px;
 
-  animation:
-    envelopeFloat 3s ease-in-out infinite;
+  animation: envelopeFloat 3s ease-in-out infinite;
 }
 
 @keyframes envelopeFloat {
-  0%,
-  100% {
+  0%,100% {
     transform: translateY(0);
   }
 
@@ -325,17 +223,16 @@ p {
   }
 }
 
-/* =================================
+/* =========================
    КНОПКИ
-================================= */
+========================= */
 
 button {
-  margin-top: 25px;
+  margin-top: 30px;
 
-  padding: 18px 32px;
+  padding: 20px 38px;
 
   border: none;
-
   border-radius: 50px;
 
   background:
@@ -348,54 +245,35 @@ button {
   color: white;
 
   font-family: inherit;
-
-  font-size: 21px;
-
+  font-size: 26px;
   font-weight: bold;
 
   cursor: pointer;
 
   box-shadow:
-    0 8px 25px
-    rgba(150, 60, 100, 0.25);
+    0 8px 25px rgba(150,60,100,.25);
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform .2s ease,
+    box-shadow .2s ease;
 }
 
 button:hover {
-  transform:
-    translateY(-3px)
-    scale(1.03);
-
-  box-shadow:
-    0 12px 30px
-    rgba(150, 60, 100, 0.35);
+  transform: translateY(-3px) scale(1.03);
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(.98);
 }
 
-/* =================================
+/* =========================
    ПИСЬМО
-================================= */
+========================= */
 
 .letter {
-  padding: 60px 45px;
+  padding: 65px 55px;
 
   background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(255, 255, 255, 0.9),
-      transparent 25%
-    ),
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(255, 190, 215, 0.45),
-      transparent 30%
-    ),
     linear-gradient(
       145deg,
       #fff0df,
@@ -404,211 +282,143 @@ button:active {
     );
 }
 
-.letter::before {
-  content: "🎂";
-
-  position: absolute;
-
-  top: 18px;
-  left: 25px;
-
-  font-size: 45px;
-}
-
-.letter::after {
-  content: "🦫";
-
-  position: absolute;
-
-  top: 18px;
-  right: 25px;
-
-  font-size: 45px;
-}
-
 .flower {
-  font-size: 70px;
-
-  animation:
-    flowerFloat 3s ease-in-out infinite;
-}
-
-@keyframes flowerFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
+  font-size: 90px;
 }
 
 .letterText {
-  margin: 35px auto 0;
+  max-width: 850px;
 
-  max-width: 700px;
-
-  position: relative;
-  z-index: 2;
+  margin: 40px auto;
 }
 
 .letterText p {
-  margin: 25px 0;
+  margin: 30px 0;
 
-  font-size: 26px;
-
-  line-height: 1.7;
+  font-size: 31px;
+  line-height: 1.75;
 
   color: #583746;
 }
 
 .signature {
-  margin-top: 40px;
+  margin-top: 45px;
 
-  font-size: 27px;
-
+  font-size: 34px;
   font-style: italic;
 
   color: #914d6b;
 }
 
-/* =================================
+/* =========================
    ВОСПОМИНАНИЯ
-================================= */
+========================= */
 
 .memories {
-  padding: 45px 30px;
+  padding: 45px 35px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255, 247, 241, 0.98),
-      rgba(255, 224, 238, 0.96)
+      rgba(255,247,241,.99),
+      rgba(255,224,238,.97)
     );
 }
 
-.memories::before {
-  content: "🎈  🎂  🦫  💕";
-
-  position: absolute;
-
-  top: 14px;
-  left: 20px;
-
-  font-size: 28px;
-
-  opacity: 0.7;
-}
-
-.memories::after {
-  content: "💕  🦫  🎂  🎈";
-
-  position: absolute;
-
-  top: 14px;
-  right: 20px;
-
-  font-size: 28px;
-
-  opacity: 0.7;
-}
-
 .memories .heart {
-  font-size: 60px;
+  font-size: 70px;
+}
+
+.memories h1 {
+  font-size: 48px;
 }
 
 #loadingText {
-  margin: 15px 0;
+  font-size: 27px;
 }
 
-/* =================================
+/* =========================
    МУЗЫКА
-================================= */
+========================= */
 
 #music {
-  width: min(600px, 100%);
+  width: min(650px, 90%);
 
-  margin: 25px auto;
+  margin: 25px auto 35px;
 
   display: block;
 }
 
-/* =================================
-   ФОТО
-================================= */
+/* =========================
+   ФОТОГРАФИЯ
+========================= */
 
 #slideshow {
   width: 100%;
 
-  max-width: 700px;
+  min-height: 520px;
 
-  min-height: 450px;
-
-  margin: 30px auto 0;
+  margin: 20px auto 0;
 
   display: flex;
-
   flex-direction: column;
 
   justify-content: center;
-
   align-items: center;
 
   position: relative;
-
   z-index: 3;
 }
+
+/*
+   ВАЖНО:
+   Фотография целиком помещается
+   в доступное пространство.
+*/
 
 #slideImage {
   display: block;
 
   width: auto;
 
-  max-width: 100%;
+  max-width: min(850px, 90vw);
 
-  max-height: 62vh;
+  max-height: 68vh;
 
-  min-height: 220px;
+  height: auto;
 
   object-fit: contain;
 
   margin: 0 auto;
 
-  border-radius: 25px;
+  border-radius: 24px;
 
-  border:
-    7px solid
-    rgba(255, 255, 255, 0.9);
+  border: 7px solid white;
 
   box-shadow:
-    0 20px 50px
-    rgba(0, 0, 0, 0.22);
+    0 18px 45px rgba(0,0,0,.22);
 
   opacity: 1;
-
   visibility: visible;
 
-  transition:
-    opacity 0.7s ease;
+  transition: opacity .7s ease;
 }
 
 .photoCounter {
-  margin-top: 15px;
+  margin-top: 18px;
 
-  font-size: 20px;
-
+  font-size: 25px;
   font-weight: bold;
 
   color: #74445b;
 }
 
-/* =================================
+/* =========================
    ФИНАЛ
-================================= */
+========================= */
 
 .final-screen {
-  padding: 60px 40px;
+  padding: 65px 50px;
 
   background:
     linear-gradient(
@@ -620,20 +430,20 @@ button:active {
 }
 
 .final-cake {
-  font-size: 95px;
+  font-size: 110px;
 }
 
 .final-heart {
-  font-size: 70px;
+  font-size: 85px;
 
-  animation:
-    heartbeat 1.5s infinite;
+  animation: heartbeat 1.5s infinite;
 }
 
 .final-title {
-  margin: 25px 0;
+  margin: 30px 0;
 
-  font-size: 44px;
+  font-size: 50px;
+  line-height: 1.25;
 
   font-weight: bold;
 
@@ -641,17 +451,21 @@ button:active {
 }
 
 .final-text {
-  max-width: 700px;
+  max-width: 800px;
 
   margin: 0 auto;
 }
 
-/* =================================
+.final-text p {
+  font-size: 29px;
+}
+
+/* =========================
    СЕКРЕТ
-================================= */
+========================= */
 
 .secret-screen {
-  padding: 60px 40px;
+  padding: 65px 50px;
 
   background:
     linear-gradient(
@@ -663,16 +477,16 @@ button:active {
 }
 
 .secret-heart {
-  font-size: 105px;
+  font-size: 120px;
 
-  animation:
-    heartbeat 1.4s infinite;
+  animation: heartbeat 1.4s infinite;
 }
 
 .secret-title {
-  margin: 25px 0 35px;
+  margin: 30px 0 40px;
 
-  font-size: 45px;
+  font-size: 50px;
+  line-height: 1.2;
 
   font-weight: bold;
 
@@ -680,60 +494,63 @@ button:active {
 }
 
 .secret-message {
-  max-width: 700px;
+  max-width: 800px;
 
   margin: 0 auto;
 }
 
 .secret-message p {
-  margin: 20px 0;
+  margin: 25px 0;
+
+  font-size: 29px;
 }
 
-/* =================================
-   АДАПТАЦИЯ
-================================= */
+/* =========================
+   ПЛАНШЕТ
+========================= */
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
 
   #app {
-    width: calc(100% - 80px);
+    width: calc(100% - 100px);
   }
 
   .side-decor {
-    width: 40px;
+    width: 45px;
   }
 
   .side-decor span {
-    font-size: 26px;
+    font-size: 30px;
   }
 
   h1 {
-    font-size: 36px;
+    font-size: 42px;
   }
 
   h2 {
-    font-size: 27px;
+    font-size: 31px;
   }
 
   p {
-    font-size: 20px;
-  }
-
-  #slideshow {
-    min-height: 320px;
+    font-size: 24px;
   }
 
   #slideImage {
-    max-height: 55vh;
+    max-width: 85vw;
+    max-height: 62vh;
   }
 }
+
+/* =========================
+   ТЕЛЕФОН
+========================= */
 
 @media (max-width: 600px) {
 
   #app {
-    width: calc(100% - 30px);
+    width: calc(100% - 24px);
 
-    padding: 20px 0;
+    padding: 15px 0;
   }
 
   .side-decor {
@@ -745,63 +562,85 @@ button:active {
   .memories,
   .final-screen,
   .secret-screen {
-    padding: 40px 20px;
+    padding: 40px 18px;
 
-    border-radius: 25px;
+    border-radius: 24px;
   }
 
   h1 {
-    font-size: 31px;
+    font-size: 34px;
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 27px;
   }
 
   p {
-    font-size: 19px;
-  }
-
-  .envelope {
-    font-size: 90px;
+    font-size: 22px;
   }
 
   .big-heart {
-    font-size: 60px;
+    font-size: 65px;
+  }
+
+  .envelope {
+    font-size: 95px;
   }
 
   .letterText p {
-    font-size: 21px;
+    font-size: 24px;
+  }
+
+  .signature {
+    font-size: 27px;
   }
 
   button {
-    font-size: 18px;
+    font-size: 21px;
 
-    padding: 16px 24px;
+    padding: 17px 25px;
+  }
+
+  .memories h1 {
+    font-size: 35px;
+  }
+
+  #loadingText {
+    font-size: 21px;
   }
 
   #slideshow {
-    min-height: 260px;
+    min-height: 300px;
   }
 
   #slideImage {
-    max-height: 50vh;
+    max-width: 92vw;
+    max-height: 58vh;
 
-    min-height: 150px;
+    min-height: 0;
 
     border-width: 5px;
   }
 
+  .photoCounter {
+    font-size: 21px;
+  }
+
   .final-title,
   .secret-title {
-    font-size: 32px;
+    font-size: 36px;
+  }
+
+  .final-text p,
+  .secret-message p {
+    font-size: 23px;
   }
 
   .final-cake {
-    font-size: 75px;
+    font-size: 80px;
   }
 
   .secret-heart {
-    font-size: 80px;
+    font-size: 90px;
   }
 }
