@@ -11,16 +11,17 @@
 
 <body>
 
-  <div class="side-decor left">
+  <!-- Праздничный декор -->
+  <div class="side-decor left" aria-hidden="true">
     <span>🎈</span>
     <span>🎂</span>
     <span>🦫</span>
-    <span>🎈</span>
     <span>💕</span>
+    <span>🎈</span>
     <span>🦫</span>
   </div>
 
-  <div class="side-decor right">
+  <div class="side-decor right" aria-hidden="true">
     <span>🎈</span>
     <span>💕</span>
     <span>🎂</span>
@@ -29,11 +30,15 @@
     <span>🎂</span>
   </div>
 
-  <div id="app">
+  <!-- Летающие сердечки -->
+  <div id="hearts" aria-hidden="true"></div>
 
-    <div class="gift">
+  <!-- Основной экран -->
+  <main id="app">
 
-      <div class="heart">❤️</div>
+    <section class="gift">
+
+      <div class="big-heart">❤️</div>
 
       <h1>Для моей любимой мамы</h1>
 
@@ -45,13 +50,13 @@
         У меня для тебя кое-что особенное...
       </p>
 
-      <button id="openButton">
+      <button id="openButton" type="button">
         Открыть подарок 🎁
       </button>
 
-    </div>
+    </section>
 
-  </div>
+  </main>
 
   <script src="script.js"></script>
 
