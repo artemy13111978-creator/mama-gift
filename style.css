@@ -1,522 +1,807 @@
-const app = document.getElementById("app");
+* {
+  box-sizing: border-box;
+}
 
-let photos = [];
-let currentPhoto = 0;
-let slideshowTimer = null;
-let photoDuration = 7100;
-let slideshowStarted = false;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
 
+body {
+  min-height: 100vh;
 
-/* =========================
-   GITHUB
-========================= */
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-const GITHUB_API =
-  "https://api.github.com/repos/artemy13111978-creator/mama-gift/contents/?ref=main";
+  color: #5a3043;
 
-const IMAGE_EXTENSIONS = [
-  ".jpg",
-  ".jpeg",
-  ".png",
-  ".webp",
-  ".gif"
-];
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255, 255, 255, 0.95),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(255, 190, 215, 0.8),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 15% 85%,
+      rgba(220, 200, 255, 0.7),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 90%,
+      rgba(255, 225, 180, 0.65),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #ffd8e7,
+      #f5d9ef,
+      #e5dcff
+    );
 
+  overflow-x: hidden;
+}
 
-/* =========================
-   ПЕРВЫЙ ЭКРАН
-========================= */
+/* =================================
+   ОСНОВА
+================================= */
 
-document
-  .getElementById("openButton")
-  .addEventListener("click", function () {
+#app {
+  width: min(900px, calc(100% - 180px));
+  min-height: 100vh;
 
-    app.innerHTML = `
+  margin: 0 auto;
 
-      <div class="letter">
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-        <div class="flower">💗</div>
+  position: relative;
+  z-index: 2;
 
-        <h1>Мамочка ❤️</h1>
+  padding: 40px 0;
+}
 
-        <p>
-          У меня для тебя есть<br>
-          кое-что очень важное...
-        </p>
+/* =================================
+   БОКОВОЙ ДЕКОР
+================================= */
 
-        <button id="letterButton">
-          Открыть письмо 💌
-        </button>
+.side-decor {
+  position: fixed;
 
-      </div>
+  top: 0;
+  bottom: 0;
 
-    `;
+  width: 85px;
 
-  });
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 
+  pointer-events: none;
 
-/* =========================
+  z-index: 1;
+}
+
+.side-decor.left {
+  left: 0;
+}
+
+.side-decor.right {
+  right: 0;
+}
+
+.side-decor span {
+  font-size: 42px;
+
+  filter:
+    drop-shadow(
+      0 5px 6px rgba(70, 30, 50, 0.15)
+    );
+
+  animation:
+    floatingDecor 4s ease-in-out infinite;
+}
+
+.side-decor span:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.side-decor span:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.side-decor span:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+.side-decor span:nth-child(5) {
+  animation-delay: 2s;
+}
+
+.side-decor span:nth-child(6) {
+  animation-delay: 2.5s;
+}
+
+@keyframes floatingDecor {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(4deg);
+  }
+}
+
+/* =================================
+   ЛЕТАЮЩИЕ СЕРДЦА
+================================= */
+
+#hearts {
+  position: fixed;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.flying-heart {
+  position: absolute;
+
+  bottom: -60px;
+
+  animation:
+    flyingHeart linear forwards;
+}
+
+@keyframes flyingHeart {
+  0% {
+    transform:
+      translate(0, 0)
+      scale(0.8);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate(var(--move), -110vh)
+      scale(1.2);
+
+    opacity: 0;
+  }
+}
+
+/* =================================
+   ОБЩИЕ КАРТОЧКИ
+================================= */
+
+.gift,
+.letter,
+.memories,
+.final-screen,
+.secret-screen {
+  width: 100%;
+
+  text-align: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 35px;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.85);
+
+  box-shadow:
+    0 25px 70px
+    rgba(100, 45, 80, 0.22);
+}
+
+/* =================================
+   ПОДАРОК
+================================= */
+
+.gift {
+  padding: 60px 40px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 250, 246, 0.98),
+      rgba(255, 225, 238, 0.97)
+    );
+}
+
+.gift::before {
+  content: "🎂   ✨   💕";
+
+  position: absolute;
+
+  top: 18px;
+  left: 25px;
+
+  font-size: 30px;
+
+  opacity: 0.75;
+}
+
+.gift::after {
+  content: "💕   ✨   🦫";
+
+  position: absolute;
+
+  right: 25px;
+  bottom: 18px;
+
+  font-size: 30px;
+
+  opacity: 0.75;
+}
+
+.big-heart {
+  font-size: 75px;
+
+  animation:
+    heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+h1 {
+  margin: 18px 0;
+
+  font-size: 46px;
+
+  color: #71344f;
+
+  text-shadow:
+    0 2px 8px
+    rgba(120, 50, 80, 0.12);
+}
+
+h2 {
+  margin: 10px 0;
+
+  font-size: 31px;
+
+  font-weight: normal;
+
+  color: #95516e;
+}
+
+p {
+  font-size: 23px;
+
+  line-height: 1.6;
+}
+
+.envelope {
+  margin: 30px 0;
+
+  font-size: 125px;
+
+  animation:
+    envelopeFloat 3s ease-in-out infinite;
+}
+
+@keyframes envelopeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* =================================
    КНОПКИ
-========================= */
+================================= */
 
-document.addEventListener("click", function (event) {
+button {
+  margin-top: 25px;
 
+  padding: 18px 32px;
 
-  /* ОТКРЫТЬ ПИСЬМО */
+  border: none;
 
-  if (event.target.id === "letterButton") {
+  border-radius: 50px;
 
-    app.innerHTML = `
-
-      <div class="letter">
-
-        <div class="flower">🌷</div>
-
-        <h1>Мамочка ❤️</h1>
-
-        <div class="letterText">
-
-          <p>
-            Мам, я тебя очень сильно люблю.
-          </p>
-
-          <p>
-            Спасибо тебе за всё!!!
-          </p>
-
-          <p>
-            Оставайся всегда рядом, пожалуйста ❤️
-          </p>
-
-        </div>
-
-        <div class="signature">
-          С любовью ❤️
-        </div>
-
-        <button id="memoriesButton">
-          Наши воспоминания 📸
-        </button>
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* =========================
-     НАШИ ВОСПОМИНАНИЯ
-  ========================= */
-
-  if (event.target.id === "memoriesButton") {
-
-    app.innerHTML = `
-
-      <div class="memories">
-
-        <div class="heart">
-          📸
-        </div>
-
-        <h1>
-          Наши воспоминания
-        </h1>
-
-        <p id="loadingText">
-          Загружаю наши фотографии ❤️
-        </p>
-
-        <audio
-          id="music"
-          controls
-          preload="auto"
-        >
-
-          <source
-            src="https://raw.githubusercontent.com/artemy13111978-creator/mama-gift/main/Alex_Lim_Igor_Krutojj_-_Vokzal_80103811.mp3"
-            type="audio/mpeg"
-          >
-
-        </audio>
-
-        <div id="slideshow"></div>
-
-      </div>
-
-    `;
-
-
-    const music =
-      document.getElementById("music");
-
-
-    music.volume = 0.7;
-
-
-    /* Когда музыка начинает играть —
-       запускаем фотографии */
-
-    music.addEventListener(
-      "play",
-      function () {
-
-        if (!slideshowStarted) {
-
-          startSlideshow(music);
-
-        }
-
-      }
+  background:
+    linear-gradient(
+      135deg,
+      #a94f78,
+      #d36d9b
     );
 
+  color: white;
 
-    /* Пытаемся запустить музыку */
+  font-family: inherit;
 
-    music.play().catch(function () {
+  font-size: 21px;
 
-      console.log(
-        "Нажми Play, чтобы включить музыку."
-      );
+  font-weight: bold;
 
-    });
+  cursor: pointer;
 
+  box-shadow:
+    0 8px 25px
+    rgba(150, 60, 100, 0.25);
 
-    loadPhotosFromGitHub();
-
-  }
-
-});
-
-
-/* =========================
-   ЗАГРУЗКА ФОТО
-========================= */
-
-async function loadPhotosFromGitHub() {
-
-  const loadingText =
-    document.getElementById("loadingText");
-
-
-  try {
-
-    const response =
-      await fetch(
-        GITHUB_API,
-        {
-          headers: {
-            "Accept":
-              "application/vnd.github+json"
-          }
-        }
-      );
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        "GitHub ошибка: " +
-        response.status
-      );
-
-    }
-
-
-    const files =
-      await response.json();
-
-
-    photos = files
-
-      .filter(function (file) {
-
-        if (file.type !== "file") {
-          return false;
-        }
-
-
-        const name =
-          file.name.toLowerCase();
-
-
-        return IMAGE_EXTENSIONS.some(
-          function (extension) {
-
-            return name.endsWith(
-              extension
-            );
-
-          }
-        );
-
-      })
-
-
-      .sort(function (a, b) {
-
-        return a.name.localeCompare(
-          b.name,
-          undefined,
-          {
-            numeric: true,
-            sensitivity: "base"
-          }
-        );
-
-      })
-
-
-      .map(function (file) {
-
-        return file.download_url;
-
-      });
-
-
-    /* =========================
-       ФОТО НЕ НАЙДЕНЫ
-    ========================= */
-
-    if (photos.length === 0) {
-
-      loadingText.textContent =
-        "Фотографии не найдены 😔";
-
-      return;
-
-    }
-
-
-    /* =========================
-       ФОТО НАЙДЕНЫ
-    ========================= */
-
-    loadingText.textContent =
-      "Здесь наши самые тёплые моменты ❤️";
-
-
-    currentPhoto = 0;
-
-
-    showFirstPhoto();
-
-
-    const music =
-      document.getElementById("music");
-
-
-    if (
-      music &&
-      !music.paused
-    ) {
-
-      startSlideshow(music);
-
-    }
-
-  }
-
-
-  catch (error) {
-
-    console.error(error);
-
-
-    loadingText.innerHTML = `
-      Не получилось загрузить фотографии 😔
-      <br><br>
-      Проверь интернет-соединение.
-    `;
-
-  }
-
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+button:hover {
+  transform:
+    translateY(-3px)
+    scale(1.03);
 
-/* =========================
-   ПЕРВАЯ ФОТОГРАФИЯ
-========================= */
-
-function showFirstPhoto() {
-
-  const slideshow =
-    document.getElementById("slideshow");
-
-
-  if (
-    !slideshow ||
-    photos.length === 0
-  ) {
-
-    return;
-
-  }
-
-
-  slideshow.innerHTML = `
-
-    <img
-      id="slideImage"
-      alt="Фотография"
-    >
-
-    <div class="photoCounter"></div>
-
-  `;
-
-
-  showPhoto();
-
+  box-shadow:
+    0 12px 30px
+    rgba(150, 60, 100, 0.35);
 }
 
-
-/* =========================
-   ЗАПУСК СЛАЙД-ШОУ
-========================= */
-
-function startSlideshow(music) {
-
-  if (
-    slideshowStarted ||
-    photos.length <= 1
-  ) {
-
-    return;
-
-  }
-
-
-  slideshowStarted = true;
-
-
-  clearInterval(
-    slideshowTimer
-  );
-
-
-  /* =========================
-     ВЫЧИСЛЯЕМ ВРЕМЯ
-     
-     Например:
-     3:33 = 213 секунд
-
-     213 / 30 =
-     примерно 7.1 сек на фото
-  ========================= */
-
-  if (
-    music &&
-    Number.isFinite(music.duration) &&
-    music.duration > 0
-  ) {
-
-    photoDuration =
-      (
-        music.duration * 1000
-      ) /
-      photos.length;
-
-  }
-
-  else {
-
-    photoDuration = 7100;
-
-  }
-
-
-  slideshowTimer =
-    setInterval(
-      function () {
-
-        currentPhoto++;
-
-
-        /* =========================
-           ПОСЛЕДНЕЕ ФОТО
-        ========================= */
-
-        if (
-          currentPhoto >=
-          photos.length
-        ) {
-
-          clearInterval(
-            slideshowTimer
-          );
-
-          slideshowTimer = null;
-
-          currentPhoto =
-            photos.length - 1;
-
-          return;
-
-        }
-
-
-        showPhoto();
-
-      },
-      photoDuration
-    );
-
+button:active {
+  transform: scale(0.98);
 }
 
+/* =================================
+   ПИСЬМО
+================================= */
 
-/* =========================
-   ПОКАЗ ФОТО
-========================= */
+.letter {
+  padding: 60px 45px;
 
-function showPhoto() {
-
-  const image =
-    document.getElementById(
-      "slideImage"
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 255, 255, 0.9),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(255, 190, 215, 0.45),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #fff0df,
+      #ffe0eb,
+      #f6e3f5
     );
+}
 
+.letter::before {
+  content: "🎂";
 
-  const counter =
-    document.querySelector(
-      ".photoCounter"
-    );
+  position: absolute;
 
+  top: 18px;
+  left: 25px;
 
-  if (
-    !image ||
-    photos.length === 0
-  ) {
+  font-size: 45px;
+}
 
-    return;
+.letter::after {
+  content: "🦫";
 
+  position: absolute;
+
+  top: 18px;
+  right: 25px;
+
+  font-size: 45px;
+}
+
+.flower {
+  font-size: 70px;
+
+  animation:
+    flowerFloat 3s ease-in-out infinite;
+}
+
+@keyframes flowerFloat {
+  0%,
+  100% {
+    transform: translateY(0);
   }
 
+  50% {
+    transform: translateY(-8px);
+  }
+}
 
-  image.style.opacity = "0";
+.letterText {
+  margin: 35px auto 0;
 
+  max-width: 700px;
 
-  setTimeout(
-    function () {
+  position: relative;
+  z-index: 2;
+}
 
-      image.src =
-        photos[currentPhoto];
+.letterText p {
+  margin: 25px 0;
 
+  font-size: 26px;
 
-      image.style.opacity = "1";
+  line-height: 1.7;
 
+  color: #583746;
+}
 
-      if (counter) {
+.signature {
+  margin-top: 40px;
 
-        counter.textContent =
-          (currentPhoto + 1) +
-          " / " +
-          photos.length;
+  font-size: 27px;
 
-      }
+  font-style: italic;
 
-    },
-    300
-  );
+  color: #914d6b;
+}
 
+/* =================================
+   ВОСПОМИНАНИЯ
+================================= */
+
+.memories {
+  padding: 45px 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 247, 241, 0.98),
+      rgba(255, 224, 238, 0.96)
+    );
+}
+
+.memories::before {
+  content: "🎈  🎂  🦫  💕";
+
+  position: absolute;
+
+  top: 14px;
+  left: 20px;
+
+  font-size: 28px;
+
+  opacity: 0.7;
+}
+
+.memories::after {
+  content: "💕  🦫  🎂  🎈";
+
+  position: absolute;
+
+  top: 14px;
+  right: 20px;
+
+  font-size: 28px;
+
+  opacity: 0.7;
+}
+
+.memories .heart {
+  font-size: 60px;
+}
+
+#loadingText {
+  margin: 15px 0;
+}
+
+/* =================================
+   МУЗЫКА
+================================= */
+
+#music {
+  width: min(600px, 100%);
+
+  margin: 25px auto;
+
+  display: block;
+}
+
+/* =================================
+   ФОТО
+================================= */
+
+#slideshow {
+  width: 100%;
+
+  max-width: 700px;
+
+  min-height: 450px;
+
+  margin: 30px auto 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  position: relative;
+
+  z-index: 3;
+}
+
+#slideImage {
+  display: block;
+
+  width: auto;
+
+  max-width: 100%;
+
+  max-height: 62vh;
+
+  min-height: 220px;
+
+  object-fit: contain;
+
+  margin: 0 auto;
+
+  border-radius: 25px;
+
+  border:
+    7px solid
+    rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 20px 50px
+    rgba(0, 0, 0, 0.22);
+
+  opacity: 1;
+
+  visibility: visible;
+
+  transition:
+    opacity 0.7s ease;
+}
+
+.photoCounter {
+  margin-top: 15px;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  color: #74445b;
+}
+
+/* =================================
+   ФИНАЛ
+================================= */
+
+.final-screen {
+  padding: 60px 40px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff0df,
+      #ffe0eb,
+      #f1e1ff
+    );
+}
+
+.final-cake {
+  font-size: 95px;
+}
+
+.final-heart {
+  font-size: 70px;
+
+  animation:
+    heartbeat 1.5s infinite;
+}
+
+.final-title {
+  margin: 25px 0;
+
+  font-size: 44px;
+
+  font-weight: bold;
+
+  color: #71344f;
+}
+
+.final-text {
+  max-width: 700px;
+
+  margin: 0 auto;
+}
+
+/* =================================
+   СЕКРЕТ
+================================= */
+
+.secret-screen {
+  padding: 60px 40px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffe5ef,
+      #f6e3ff,
+      #fff0df
+    );
+}
+
+.secret-heart {
+  font-size: 105px;
+
+  animation:
+    heartbeat 1.4s infinite;
+}
+
+.secret-title {
+  margin: 25px 0 35px;
+
+  font-size: 45px;
+
+  font-weight: bold;
+
+  color: #71344f;
+}
+
+.secret-message {
+  max-width: 700px;
+
+  margin: 0 auto;
+}
+
+.secret-message p {
+  margin: 20px 0;
+}
+
+/* =================================
+   АДАПТАЦИЯ
+================================= */
+
+@media (max-width: 800px) {
+
+  #app {
+    width: calc(100% - 80px);
+  }
+
+  .side-decor {
+    width: 40px;
+  }
+
+  .side-decor span {
+    font-size: 26px;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 27px;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  #slideshow {
+    min-height: 320px;
+  }
+
+  #slideImage {
+    max-height: 55vh;
+  }
+}
+
+@media (max-width: 600px) {
+
+  #app {
+    width: calc(100% - 30px);
+
+    padding: 20px 0;
+  }
+
+  .side-decor {
+    display: none;
+  }
+
+  .gift,
+  .letter,
+  .memories,
+  .final-screen,
+  .secret-screen {
+    padding: 40px 20px;
+
+    border-radius: 25px;
+  }
+
+  h1 {
+    font-size: 31px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 19px;
+  }
+
+  .envelope {
+    font-size: 90px;
+  }
+
+  .big-heart {
+    font-size: 60px;
+  }
+
+  .letterText p {
+    font-size: 21px;
+  }
+
+  button {
+    font-size: 18px;
+
+    padding: 16px 24px;
+  }
+
+  #slideshow {
+    min-height: 260px;
+  }
+
+  #slideImage {
+    max-height: 50vh;
+
+    min-height: 150px;
+
+    border-width: 5px;
+  }
+
+  .final-title,
+  .secret-title {
+    font-size: 32px;
+  }
+
+  .final-cake {
+    font-size: 75px;
+  }
+
+  .secret-heart {
+    font-size: 80px;
+  }
 }
