@@ -13,19 +13,19 @@ body {
 body {
   font-family: Georgia, "Times New Roman", serif;
   background:
-    radial-gradient(circle at 20% 20%, #fff8fb 0, transparent 30%),
-    radial-gradient(circle at 80% 80%, #ffdce9 0, transparent 32%),
-    linear-gradient(135deg, #fff4f8, #ffe3ed);
-  color: #57283b;
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,.9), transparent 28%),
+    radial-gradient(circle at 90% 80%, rgba(255,180,205,.55), transparent 30%),
+    linear-gradient(135deg, #fff1f6 0%, #ffdce8 50%, #fff0f5 100%);
+  color: #5d2940;
   overflow-x: hidden;
 }
 
 #app {
   min-height: 100vh;
+  padding: 35px 90px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px 100px;
   position: relative;
   z-index: 2;
 }
@@ -36,7 +36,7 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 95px;
+  width: 75px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -46,9 +46,15 @@ body {
 }
 
 .side-decor.left {
-  left: 15px;
+  left: 10px;
 }
 
 .side-decor.right {
-  right: 15px;
+  right: 10px;
+}
+
+.side-decor span {
+  font-size: 38px;
+  filter: drop-shadow(0 4px 5px rgba(90,30,50,.15));
+  animation: floatDecor 4s ease-in-out infinit
 ```
