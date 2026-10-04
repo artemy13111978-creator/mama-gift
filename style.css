@@ -1,202 +1,213 @@
+```css
 * {
   box-sizing: border-box;
-  }
+}
 
 html,
 body {
-margin: 0;
-padding: 0;
-width: 100%;
-min-height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
-min-height: 100vh;
-overflow-x: hidden;
-
-font-family: Georgia, "Times New Roman", serif;
-color: #51283b;
-
-background:
-radial-gradient(circle at 50% 0%, #ffffff 0%, rgba(255,255,255,.5) 22%, transparent 45%),
-radial-gradient(circle at 0% 100%, #d8d2ff 0%, transparent 42%),
-radial-gradient(circle at 100% 100%, #ffd0e2 0%, transparent 42%),
-linear-gradient(135deg, #f4aeca 0%, #dfc2ec 50%, #bdcef4 100%);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #fff1f7 0%, #ffe0ec 100%);
+  color: #5a2438;
+  overflow-x: hidden;
 }
-
-/* Праздничные светлые точки */
-body::before {
-content: "♥   ✦   ♥   ✦   ♥   ✦   ♥";
-position: fixed;
-top: 20px;
-left: 0;
-width: 100%;
-
-text-align: center;
-
-color: rgba(255,255,255,.9);
-font-size: 26px;
-letter-spacing: 10px;
-
-pointer-events: none;
-z-index: 0;
-}
-
-/* =========================
-ЦЕНТР
-========================= */
 
 #app {
-position: relative;
-z-index: 3;
-
-width: min(900px, calc(100% - 220px));
-
-margin: 0 auto;
-padding: 55px 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* =========================
-БОЛЬШИЕ ШАРЫ
-========================= */
-
+/* Боковые украшения */
 .side-decor {
-position: fixed;
-top: 0;
-bottom: 0;
-
-width: 145px;
-
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: center;
-
-z-index: 2;
-pointer-events: none;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 42px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .side-decor.left {
-left: 0;
+  left: 0;
 }
 
 .side-decor.right {
-right: 0;
+  right: 0;
 }
 
 .side-decor span {
-display: block;
-
-font-size: 75px;
-line-height: 1;
-
-filter: drop-shadow(
-0 10px 8px rgba(70,30,60,.18)
-);
-
-animation: balloonFloat 4s ease-in-out infinite;
+  font-size: 28px;
 }
 
-.side-decor span:nth-child(2) {
-animation-delay: .5s;
-}
-
-.side-decor span:nth-child(3) {
-animation-delay: 1s;
-}
-
-.side-decor span:nth-child(4) {
-animation-delay: 1.5s;
-}
-
-.side-decor span:nth-child(5) {
-animation-delay: 2s;
-}
-
-.side-decor span:nth-child(6) {
-animation-delay: 2.5s;
-}
-
-@keyframes balloonFloat {
-0%,
-100% {
-transform: translateY(0) rotate(-5deg);
-}
-
-50% {
-transform: translateY(-18px) rotate(5deg);
-}
-}
-
-/* =========================
-ЛЕТЯЩИЕ СЕРДЦА
-========================= */
-
-#hearts {
-position: fixed;
-inset: 0;
-
-overflow: hidden;
-pointer-events: none;
-
-z-index: 20;
-}
-
-.flying-heart {
-position: absolute;
-bottom: -80px;
-
-opacity: 0;
-
-font-size: 32px;
-
-animation: flyHeart linear forwards;
-}
-
-@keyframes flyHeart {
-0% {
-transform: translateY(0) translateX(0);
-opacity: 0;
-}
-
-15% {
-opacity: .9;
-}
-
-100% {
-transform:
-translateY(-110vh)
-translateX(var(--move))
-rotate(360deg);
-
-```
-opacity: 0;
-```
-
-}
-}
-
-/* =========================
-ЭКРАНЫ
-========================= */
-
+/* Главный экран */
 .gift,
 .letter,
 .memories,
 .final-screen,
 .secret-screen {
-position: relative;
+  width: calc(100% - 20px);
+  max-width: 430px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
 
-width: 100%;
+.gift {
+  padding: 28px 18px 34px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 28px;
+  box-shadow: 0 8px 30px rgba(130, 40, 75, 0.18);
+}
 
-text-align: center;
+.gift .heart {
+  font-size: 58px;
+  margin-bottom: 10px;
+}
 
-border: 3px solid rgba(255,255,255,.9);
-border-radius: 42px;
+.gift h1 {
+  font-size: 30px;
+  line-height: 1.15;
+  margin: 10px 0;
+}
 
-box-shadow:
-0 25px 75px rgba(70,30,60,.24);
+.gift h2 {
+  font-size: 26px;
+  margin: 12px 0 22px;
+}
 
-overflow: hidden;
+.envelope {
+  font-size: 95px;
+  line-height: 1;
+  margin: 15px 0 22px;
+}
 
-animation: appear .7s e
+.gift p {
+  font-size: 21px;
+  line-height: 1.4;
+  margin: 18px 5px 25px;
+}
+
+button {
+  width: 100%;
+  min-height: 62px;
+  border: none;
+  border-radius: 18px;
+  padding: 14px 18px;
+  background: #e83f75;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(180, 40, 85, 0.25);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Письмо */
+.letter {
+  padding: 30px 20px 35px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 28px;
+  box-shadow: 0 8px 30px rgba(130, 40, 75, 0.18);
+}
+
+.flower {
+  font-size: 70px;
+  margin-bottom: 10px;
+}
+
+.letter h1 {
+  font-size: 34px;
+  margin: 10px 0 20px;
+}
+
+.letter > p {
+  font-size: 23px;
+  line-height: 1.45;
+}
+
+.letterText {
+  margin: 25px 0;
+}
+
+.letterText p {
+  font-size: 23px;
+  line-height: 1.5;
+  margin: 22px 0;
+}
+
+.signature {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+/* Воспоминания */
+.memories {
+  width: 100%;
+  max-width: 460px;
+  padding: 20px 8px 35px;
+}
+
+.memories .heart {
+  font-size: 58px;
+  margin-bottom: 8px;
+}
+
+.memories h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 8px 0 14px;
+}
+
+#loadingText {
+  font-size: 19px;
+  line-height: 1.4;
+  margin: 12px 5px 18px;
+}
+
+#music {
+  width: 100%;
+  margin: 10px 0 22px;
+}
+
+#slideshow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#slideImage {
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  max-height: 68vh;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(70, 20, 40, 0.25);
+  transition: opacity 0.5s ease;
+}
+
+.photoCounter {
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight:
+```
